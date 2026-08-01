@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "siteName": "Rama Bazin & Couture",
+    "slogan": "L'excellence du Bazin & de la Couture au Bénin",
+    "description": "Boutique de Bazin et Haute Couture à Cotonou, Bénin. Bazin VIP, Bazin Miel, Getzner, Haute Couture et accessoires. Commandez directement sur WhatsApp.",
+    "phone1": "+2290197384949",
+    "phone1Display": "+229 01 97 38 49 49",
+    "phone1Wa": "2290197384949",
+    "phone2": "+2290197949835",
+    "phone2Display": "+229 01 97 94 98 35",
+    "phone2Wa": "2290197949835",
+    "email": "jasminemarafa11@gmail.com",
+    "instagram": "@ramabazinetcouture",
+    "siege": "Dernière rue à droite avant le carrefour Caboma, sur le pavé, en face de l'église St Michel, Cotonou, Bénin.",
+    "annexe": "5ème rue à droite du pavé, en face de l'église St Michel, Cotonou, Bénin.",
+    "logo": "logo.jpg",
+    "ogImage": "og-image.jpg",
+    "qrcode": "qrcode.jpg",
+    "heroImage": "hero.jpg",
+    "heroVideo": "hero.mp4"
+  },
+  "categories": [
+    { "id": "bazin-vip", "label": "Bazin VIP" },
+    { "id": "bazin-miel", "label": "Bazin Miel" },
+    { "id": "getzner", "label": "Getzner" },
+    { "id": "haute-couture", "label": "Haute Couture" },
+    { "id": "accessoires", "label": "Accessoires" }
+  ],
+  "products": [
+    {
+      "id": "p001",
+      "name": "Bazin Riche VIP Doré",
+      "category": "bazin-vip",
+      "price": 45000,
+      "image": "bazin_vip_1.jpg",
+      "description": "Bazin Riche VIP, éclat intense et tissage premium, idéal pour les grandes cérémonies.",
+      "featured": true
+    },
+    {
+      "id": "p002",
+      "name": "Bazin Miel Impérial",
+      "category": "bazin-miel",
+      "price": 32000,
+      "image": "bazin_miel_1.jpg",
+      "description": "Bazin Miel doux et brillant, parfait pour un style élégant au quotidien.",
+      "featured": true
+    },
+    {
+      "id": "p003",
+      "name": "Getzner Prestige Bleu Nuit",
+      "category": "getzner",
+      "price": 55000,
+      "image": "getzner_1.jpg",
+      "description": "Getzner authentique, texture noble et tenue impeccable dans le temps.",
+      "featured": true
+    },
+    {
+      "id": "p004",
+      "name": "Ensemble Haute Couture Amara",
+      "category": "haute-couture",
+      "price": 120000,
+      "image": "couture_1.jpg",
+      "description": "Création sur-mesure, broderies fines et finitions haut de gamme.",
+      "featured": true
+    },
+    {
+      "id": "p005",
+      "name": "Bazin VIP Grenat",
+      "category": "bazin-vip",
+      "price": 47000,
+      "image": "bazin_vip_2.jpg",
+      "description": "Coloris grenat profond, tissage dense, pour une allure royale.",
+      "featured": false
+    },
+    {
+      "id": "p006",
+      "name": "Bazin Miel Émeraude",
+      "category": "bazin-miel",
+      "price": 33000,
+      "image": "bazin_miel_2.jpg",
+      "description": "Vert émeraude lumineux, souplesse et confort pour toute occasion.",
+      "featured": false
+    },
+    {
+      "id": "p007",
+      "name": "Getzner Ivoire Cérémonie",
+      "category": "getzner",
+      "price": 58000,
+      "image": "getzner_2.jpg",
+      "description": "Ivoire éclatant, coupe raffinée pour mariages et cérémonies.",
+      "featured": false
+    },
+    {
+      "id": "p008",
+      "name": "Robe Haute Couture Zohra",
+      "category": "haute-couture",
+      "price": 135000,
+      "image": "couture_2.jpg",
+      "description": "Robe d'exception, patron exclusif Rama Couture, ajustement sur mesure.",
+      "featured": false
+    },
+    {
+      "id": "p009",
+      "name": "Foulard Bazin Doré",
+      "category": "accessoires",
+      "price": 8000,
+      "image": "accessoire_1.jpg",
+      "description": "Foulard assorti en chute de Bazin, finition cousue main.",
+      "featured": false
+    },
+    {
+      "id": "p010",
+      "name": "Sac à Main Wax Premium",
+      "category": "accessoires",
+      "price": 15000,
+      "image": "accessoire_2.jpg",
+      "description": "Sac artisanal en tissu Wax, doublure intérieure renforcée.",
+      "featured": false
+    },
+    {
+      "id": "p011",
+      "name": "Bazin VIP Royal Bleu",
+      "category": "bazin-vip",
+      "price": 46000,
+      "image": "bazin_vip_3.jpg",
+      "description": "Bleu royal profond, brillance signature Bazin Riche.",
+      "featured": false
+    },
+    {
+      "id": "p012",
+      "name": "Costume Haute Couture Osée",
+      "category": "haute-couture",
+      "price": 150000,
+      "image": "couture_3.jpg",
+      "description": "Costume trois pièces, coupe moderne, tissu Bazin d'exception.",
+      "featured": false
+    }
+  ],
+  "videos": [
+    {
+      "id": "v001",
+      "title": "Défilé Collection Bazin VIP 2026",
+      "file": "defile_2026.mp4",
+      "poster": "defile_2026.jpg"
+    },
+    {
+      "id": "v002",
+      "title": "Présentation Tissus Getzner",
+      "file": "presentation_getzner.mp4",
+      "poster": "presentation_getzner.jpg"
+    },
+    {
+      "id": "v003",
+      "title": "Atelier Haute Couture",
+      "file": "atelier_couture.mp4",
+      "poster": "atelier_couture.jpg"
+    }
+  ]
+}

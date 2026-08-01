@@ -1,0 +1,54 @@
+{
+  "name": "Rama Bazin & Couture",
+  "short_name": "Rama Couture",
+  "description": "L'excellence du Bazin & de la Couture au Bénin. Boutique en ligne, collections Bazin VIP, Bazin Miel, Getzner, Haute Couture et prise de mesures sur-mesure.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0B0906",
+  "theme_color": "#0B0906",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["shopping", "lifestyle", "business"],
+  "icons": [
+    {
+      "src": "icon-192.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Boutique",
+      "short_name": "Boutique",
+      "url": "./index.html#boutique",
+      "description": "Voir les collections Bazin et Haute Couture"
+    },
+    {
+      "name": "Mes Mesures",
+      "short_name": "Mesures",
+      "url": "./index.html#compte",
+      "description": "Consulter mes mesures et mon historique"
+    },
+    {
+      "name": "Contact WhatsApp",
+      "short_name": "WhatsApp",
+      "url": "./index.html#contact",
+      "description": "Contacter la boutique sur WhatsApp"
+    }
+  ]
+}

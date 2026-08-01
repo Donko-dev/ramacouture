@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rama Bazin & Couture — L'excellence du Bazin & de la Couture au Bénin</title>
+<meta name="description" content="Rama Bazin & Couture, boutique à Cotonou (Bénin) : Bazin VIP, Bazin Miel, Getzner, Haute Couture et accessoires. Commandez directement sur WhatsApp.">
+<meta name="theme-color" content="#0B0906">
+<meta name="color-scheme" content="dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Rama Couture">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rama Bazin & Couture">
+<meta property="og:title" content="Rama Bazin & Couture — L'excellence du Bazin & de la Couture au Bénin">
+<meta property="og:description" content="Boutique de Bazin et Haute Couture à Cotonou, Bénin. Bazin VIP, Bazin Miel, Getzner, Haute Couture et accessoires. Commandez directement sur WhatsApp.">
+<meta property="og:image" content="og-image.jpg">
+<meta property="og:image:width" content="1080">
+<meta property="og:image:height" content="1080">
+<meta property="og:url" content="https://ramabazinetcouture.github.io/">
+<meta property="og:locale" content="fr_FR">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rama Bazin & Couture">
+<meta name="twitter:description" content="L'excellence du Bazin & de la Couture au Bénin. Découvrez nos collections et commandez sur WhatsApp.">
+<meta name="twitter:image" content="og-image.jpg">
+
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#0B0906;
+  --surface:#151109;
+  --surface-2:#1E1811;
+  --gold:#D4AF37;
+  --gold-deep:#C5A059;
+  --cream:#F5EFE4;
+  --muted:#B6A98F;
+  --line:rgba(212,175,55,0.22);
+  --shadow:0 20px 60px rgba(0,0,0,0.45);
+  --radius:14px;
+  --display:'Cormorant Garamond', 'Georgia', serif;
+  --body:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--cream);
+  font-family:var(--body);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+body.no-scroll{overflow:hidden;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;margin:0 0 .4em;letter-spacing:.01em;}
+p{margin:0 0 1em;color:var(--muted);}
+button{font-family:inherit;cursor:pointer;}
+.container{width:min(1180px, 92%);margin:0 auto;}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--ink);padding:10px 16px;z-index:999;border-radius:0 0 8px 0;}
+.skip-link:focus{left:0;}
+
+/* Texture Bazin subtile en fond */
+.bazin-texture{
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(212,175,55,0.06) 0, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(212,175,55,0.05) 0, transparent 45%),
+    repeating-linear-gradient(115deg, rgba(212,175,55,0.025) 0 2px, transparent 2px 26px);
+}
+
+/* Eyebrow / labels */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5em;
+  font-family:var(--body);font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.9em;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--gold-deep);}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+  padding:.9em 1.6em;border-radius:999px;font-weight:700;font-size:.92rem;
+  border:1px solid transparent;transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+  white-space:nowrap;
+}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#1A1408;}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(212,175,55,0.35);}
+.btn-outline{border-color:var(--line);color:var(--cream);}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.btn-ghost{background:rgba(212,175,55,0.08);color:var(--gold);border-color:var(--line);}
+.btn-ghost:hover{background:rgba(212,175,55,0.16);}
+.btn-sm{padding:.6em 1em;font-size:.78rem;border-radius:999px;}
+.btn-block{width:100%;}
+
+/* Header */
+#site-header{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 5%;
+  background:linear-gradient(to bottom, rgba(11,9,6,0.85), transparent);
+  transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
+}
+#site-header.is-scrolled{
+  background:rgba(11,9,6,0.92);
+  backdrop-filter:blur(10px);
+  padding:10px 5%;
+  box-shadow:0 6px 24px rgba(0,0,0,0.35);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:.6em;}
+.brand img{width:42px;height:42px;border-radius:10px;object-fit:cover;}
+.brand-text{display:flex;flex-direction:column;line-height:1.1;}
+.brand-text strong{font-family:var(--display);font-size:1.15rem;color:var(--cream);letter-spacing:.02em;}
+.brand-text span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+
+.nav-actions{display:flex;align-items:center;gap:14px;}
+#nav-menu{
+  position:fixed;inset:0 0 0 auto;width:min(320px,84%);
+  background:var(--surface);
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
+  padding:96px 32px 32px;display:flex;flex-direction:column;gap:22px;
+  border-left:1px solid var(--line);
+}
+#nav-menu.is-open{transform:translateX(0);}
+#nav-menu a{font-family:var(--display);font-size:1.4rem;color:var(--cream);}
+#nav-menu a:hover{color:var(--gold);}
+#nav-toggle{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(212,175,55,.06);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;
+}
+#nav-toggle span{display:block;width:18px;height:2px;background:var(--gold);}
+.cart-btn{
+  position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(212,175,55,.06);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold);
+}
+.cart-badge{
+  position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:999px;
+  background:var(--gold);color:#1A1408;font-size:.65rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;padding:0 4px;
+}
+.cart-badge.is-hidden{display:none;}
+#nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:59;}
+
+/* Hero */
+.hero{
+  position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  overflow:hidden;padding:0 5% 96px;
+}
+.hero-media{position:absolute;inset:0;z-index:0;}
+.hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.05);}
+.hero-scrim{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to top, rgba(11,9,6,.98) 0%, rgba(11,9,6,.55) 40%, rgba(11,9,6,.35) 65%, rgba(11,9,6,.75) 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:760px;}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.03;color:var(--cream);}
+.hero h1 em{font-style:italic;color:var(--gold);}
+.hero p.lead{font-size:1.05rem;max-width:520px;}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:1.6em;}
+.scroll-cue{
+  position:absolute;bottom:28px;left:5%;z-index:2;display:flex;align-items:center;gap:.6em;
+  font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+}
+.scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:scrollcue 1.8s infinite;}
+@keyframes scrollcue{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+
+/* Sections */
+section{padding:90px 0;}
+.section-head{max-width:640px;margin-bottom:44px;}
+.section-head h2{font-size:clamp(1.9rem,4vw,2.7rem);color:var(--cream);}
+.section-tag{background:var(--surface);}
+
+/* Reveal animation */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .7s ease, transform .7s ease;}
+[data-reveal].is-visible{opacity:1;transform:none;}
+
+/* Category chips */
+.filters-bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px;}
+.chip{
+  padding:.55em 1.1em;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);
+  font-size:.82rem;font-weight:600;transition:all .25s ease;
+}
+.chip.is-active,.chip:hover{border-color:var(--gold);color:var(--gold);background:rgba(212,175,55,.08);}
+.search-row{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+.search-row input{
+  flex:1;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:999px;
+  padding:.8em 1.3em;color:var(--cream);font-family:var(--body);
+}
+.search-row input::placeholder{color:var(--muted);}
+.search-row input:focus{outline:2px solid var(--gold);outline-offset:2px;}
+
+/* Product grid — 2 colonnes obligatoire sur mobile */
+.products-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+}
+@media(min-width:640px){.products-grid{grid-template-columns:repeat(3,1fr);gap:20px;}}
+@media(min-width:980px){.products-grid{grid-template-columns:repeat(4,1fr);gap:24px;}}
+
+.product-card{
+  position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold-deep);}
+.product-media{aspect-ratio:3/4;background:var(--surface-2);overflow:hidden;}
+.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.product-card:hover .product-media img{transform:scale(1.06);}
+.img-fallback{object-fit:contain !important;padding:22%;background:var(--surface-2);}
+.product-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.product-cat{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.product-name{font-size:1rem;color:var(--cream);margin:0;line-height:1.25;}
+.product-price{font-family:var(--body);font-weight:800;color:var(--gold);font-size:.95rem;margin:0 0 6px;}
+.product-actions{display:flex;flex-direction:column;gap:8px;margin-top:auto;}
+.product-actions .btn{width:100%;text-align:center;}
+.fav-btn{
+  position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;
+  background:rgba(11,9,6,.55);backdrop-filter:blur(4px);border:1px solid var(--line);color:var(--cream);
+  font-size:1rem;display:flex;align-items:center;justify-content:center;
+}
+.fav-btn.is-active{color:var(--gold);border-color:var(--gold);}
+.empty-state{color:var(--muted);font-style:italic;padding:20px 0;}
+
+/* Videos */
+.videos-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+@media(min-width:760px){.videos-grid{grid-template-columns:repeat(3,1fr);}}
+.video-card{margin:0;}
+.video-frame{position:relative;aspect-ratio:9/13;background:var(--surface);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);}
+.video-frame video{width:100%;height:100%;object-fit:cover;}
+.video-play-overlay{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,9,6,.28);
+  border:0;
+}
+.video-card.is-playing .video-play-overlay{opacity:0;pointer-events:none;}
+.play-icon{
+  width:64px;height:64px;border-radius:50%;background:rgba(212,175,55,.92);color:#1A1408;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+}
+.video-controls{
+  position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;
+  padding:10px 12px;background:linear-gradient(to top, rgba(11,9,6,.85), transparent);
+  opacity:0;transition:opacity .25s ease;
+}
+.video-card.is-playing .video-controls,.video-frame:hover .video-controls{opacity:1;}
+.vc-btn{background:none;border:0;color:var(--cream);font-size:1rem;}
+.video-progress{flex:1;height:3px;background:rgba(255,255,255,.25);border-radius:2px;overflow:hidden;}
+.video-progress-fill{height:100%;width:0;background:var(--gold);}
+figcaption{margin-top:12px;color:var(--cream);font-family:var(--display);font-size:1.05rem;}
+
+/* About */
+.about-grid{display:grid;gap:36px;align-items:center;}
+@media(min-width:860px){.about-grid{grid-template-columns:1fr 1fr;}}
+.about-media{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;background:var(--surface);}
+.about-media img{width:100%;height:100%;object-fit:cover;}
+.stat-row{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap;}
+.stat b{display:block;font-family:var(--display);font-size:1.8rem;color:var(--gold);}
+.stat span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+/* Compte / Mesures */
+.account-grid{display:grid;gap:28px;}
+@media(min-width:900px){.account-grid{grid-template-columns:1fr 1fr;}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;}
+.client-id-box{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.client-id-box strong{font-family:var(--display);font-size:1.5rem;color:var(--gold);letter-spacing:.05em;}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0;}
+.field label{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.field input{
+  width:100%;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;
+  padding:.7em .9em;color:var(--cream);font-family:var(--body);
+}
+.field input:focus{outline:2px solid var(--gold);outline-offset:1px;}
+.restore-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;}
+.restore-row input{flex:1;min-width:160px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:.7em .9em;color:var(--cream);}
+.history-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:.88rem;list-style:none;}
+#history-list{list-style:none;padding:0;margin:0;}
+.history-date{color:var(--muted);}
+.history-type{color:var(--gold);text-transform:capitalize;}
+
+/* Contact */
+.contact-grid{display:grid;gap:24px;}
+@media(min-width:900px){.contact-grid{grid-template-columns:1.3fr 1fr;}}
+.contact-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px;}
+.contact-list li{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);}
+.contact-list .ic{font-size:1.3rem;color:var(--gold);}
+.contact-list h4{margin:0 0 2px;color:var(--cream);font-size:1rem;}
+.contact-list p{margin:0;font-size:.88rem;}
+.qr-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;}
+.qr-card img{width:170px;height:170px;margin:0 auto 14px;border-radius:10px;border:1px solid var(--line);}
+
+/* Footer */
+footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0 26px;}
+.footer-grid{display:grid;gap:32px;}
+@media(min-width:760px){.footer-grid{grid-template-columns:1.4fr 1fr 1fr;}}
+.footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.footer-brand img{width:46px;height:46px;border-radius:10px;}
+.footer-brand strong{font-family:var(--display);font-size:1.2rem;color:var(--cream);}
+.footer-col h5{color:var(--gold);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px;}
+.footer-col a,.footer-col p{display:block;margin-bottom:10px;font-size:.9rem;color:var(--muted);}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{
+  margin-top:40px;padding-top:22px;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.78rem;color:var(--muted);
+}
+.footer-bottom strong{color:var(--gold);}
+
+/* Cart Drawer */
+#cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:80;}
+#cart-overlay.is-open{opacity:1;pointer-events:auto;}
+#cart-drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(400px,92%);background:var(--surface);z-index:81;
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
+  display:flex;flex-direction:column;border-left:1px solid var(--line);
+}
+#cart-drawer.is-open{transform:translateX(0);}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:22px;border-bottom:1px solid var(--line);}
+.cart-head h3{margin:0;}
+.cart-close{background:none;border:0;color:var(--cream);font-size:1.4rem;}
+#cart-items{flex:1;overflow-y:auto;padding:16px 22px;}
+.cart-line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
+.cart-line img{width:56px;height:70px;object-fit:cover;border-radius:8px;}
+.cart-line-info{flex:1;}
+.cart-line-name{margin:0;font-size:.88rem;color:var(--cream);}
+.cart-line-price{margin:2px 0 6px;font-size:.8rem;color:var(--gold);}
+.qty-control{display:flex;align-items:center;gap:10px;}
+.qty-control button{width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream);}
+.cart-remove{background:none;border:0;color:var(--muted);font-size:1rem;}
+.cart-foot{padding:20px 22px 26px;border-top:1px solid var(--line);}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:14px;font-family:var(--display);font-size:1.2rem;}
+.cart-foot .btn{width:100%;margin-bottom:10px;}
+
+/* Toasts */
+#rama-toast-host{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:8px;align-items:center;}
+.rama-toast{
+  background:var(--gold);color:#1A1408;padding:.8em 1.4em;border-radius:999px;font-size:.85rem;font-weight:700;
+  opacity:0;transform:translateY(10px);transition:opacity .3s ease, transform .3s ease;box-shadow:var(--shadow);
+}
+.rama-toast.is-visible{opacity:1;transform:none;}
+
+/* Install / update banners */
+.floating-banner{
+  position:fixed;left:16px;right:16px;bottom:16px;z-index:150;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);padding:16px 18px;display:none;align-items:center;gap:14px;box-shadow:var(--shadow);
+  max-width:460px;margin:0 auto;
+}
+.floating-banner.is-visible{display:flex;}
+.floating-banner img{width:38px;height:38px;border-radius:8px;flex-shrink:0;}
+.floating-banner p{margin:0;font-size:.85rem;color:var(--cream);flex:1;}
+.floating-banner .actions{display:flex;gap:8px;}
+#ios-install-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:160;display:none;align-items:flex-end;justify-content:center;
+}
+#ios-install-modal.is-visible{display:flex;}
+.ios-sheet{background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:28px 24px 34px;width:100%;max-width:480px;}
+.ios-sheet h4{color:var(--gold);}
+.ios-sheet ol{padding-left:20px;color:var(--muted);}
+.ios-sheet li{margin-bottom:8px;}
+#ios-install-hint.is-hidden{display:none;}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+</style>
+</head>
+<body class="bazin-texture">
+<a href="#main" class="skip-link">Aller au contenu</a>
+
+<!-- ============ HEADER ============ -->
+<header id="site-header">
+  <a href="#accueil" class="brand">
+    <img data-bind="logo" src="logo.jpg" alt="Rama Bazin & Couture">
+    <span class="brand-text">
+      <strong>Rama Bazin</strong>
+      <span>&amp; Couture</span>
+    </span>
+  </a>
+  <div class="nav-actions">
+    <button type="button" class="cart-btn" data-open-cart aria-label="Voir le panier">
+      🛍️<span class="cart-badge is-hidden" data-cart-count>0</span>
+    </button>
+    <button type="button" id="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav id="nav-menu" aria-label="Navigation principale">
+    <a href="#accueil">Accueil</a>
+    <a href="#boutique">Boutique</a>
+    <a href="#videos">Défilés &amp; Ateliers</a>
+    <a href="#a-propos">Notre Savoir-faire</a>
+    <a href="#compte">Mon Compte</a>
+    <a href="#contact">Contact</a>
+    <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener">Commander sur WhatsApp</a>
+  </nav>
+</header>
+<div id="nav-overlay"></div>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="accueil">
+    <div class="hero-media">
+      <img id="hero-media-image" src="hero.jpg" alt="Collection Rama Bazin & Couture" onerror="this.style.opacity=0">
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="container hero-content">
+      <p class="eyebrow">Cotonou · Bénin</p>
+      <h1>L'excellence du <em>Bazin</em><br>&amp; de la Couture</h1>
+      <p class="lead">Bazin VIP, Bazin Miel, Getzner et créations Haute Couture façonnés avec exigence, pour sublimer chaque cérémonie.</p>
+      <div class="hero-cta">
+        <a href="#boutique" class="btn btn-gold">Découvrir la boutique</a>
+        <a href="#contact" class="btn btn-outline">Prendre rendez-vous</a>
+      </div>
+    </div>
+    <span class="scroll-cue">Défiler</span>
+  </section>
+
+  <!-- ============ SÉLECTION DU MOMENT ============ -->
+  <section aria-labelledby="featured-title">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Sélection</p>
+        <h2 id="featured-title">Nos pièces du moment</h2>
+        <p>Un aperçu des créations les plus demandées de la saison.</p>
+      </div>
+      <div class="products-grid" id="featured-grid" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ============ BOUTIQUE ============ -->
+  <section id="boutique" style="background:var(--surface);">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Boutique</p>
+        <h2>Toute la collection</h2>
+        <p>Filtrez par catégorie ou recherchez une pièce précise. Chaque article peut être ajouté au panier ou commandé directement sur WhatsApp.</p>
+      </div>
+      <div class="search-row" data-reveal>
+        <input type="search" id="product-search" placeholder="Rechercher un article…" aria-label="Rechercher un article">
+      </div>
+      <div class="filters-bar" id="category-filters" data-reveal></div>
+      <div class="products-grid" id="products-grid" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ============ VIDÉOS ============ -->
+  <section id="videos">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">En mouvement</p>
+        <h2>Défilés &amp; Ateliers</h2>
+        <p>Regardez nos vidéos directement sur la page, sans jamais quitter le site.</p>
+      </div>
+      <div class="videos-grid" id="videos-grid" data-reveal></div>
+    </div>
+  </section>
+
+  <!-- ============ À PROPOS ============ -->
+  <section id="a-propos" style="background:var(--surface);">
+    <div class="container about-grid">
+      <div data-reveal>
+        <div class="about-media">
+          <img src="atelier.jpg" alt="Atelier Rama Bazin & Couture" onerror="this.src='logo.jpg';this.style.objectFit='contain';this.style.padding='18%'">
+        </div>
+      </div>
+      <div data-reveal>
+        <p class="eyebrow">Notre Savoir-faire</p>
+        <h2>Une exigence transmise avec passion</h2>
+        <p>Chez Rama Bazin &amp; Couture, chaque tissu est choisi avec soin et chaque création est pensée pour révéler votre allure. De la sélection du Bazin le plus riche jusqu'à la dernière finition d'un ensemble Haute Couture, notre atelier de Cotonou met son savoir-faire au service de votre élégance.</p>
+        <div class="stat-row">
+          <div class="stat"><b>5</b><span>Catégories</span></div>
+          <div class="stat"><b>2</b><span>Adresses à Cotonou</span></div>
+          <div class="stat"><b>100%</b><span>Sur-mesure disponible</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MON COMPTE ============ -->
+  <section id="compte">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Espace Cliente</p>
+        <h2>Mon Compte</h2>
+        <p>Vos mesures, favoris et historique sont conservés sur cet appareil. Utilisez votre ID Client pour les retrouver sur un autre téléphone.</p>
+      </div>
+
+      <div class="account-grid">
+        <div class="card" data-reveal>
+          <h3>Mon ID Client</h3>
+          <div class="client-id-box">
+            <strong id="client-id-display">RAMA-0000</strong>
+            <button type="button" class="btn btn-ghost btn-sm" id="copy-client-id">Copier mon ID</button>
+          </div>
+          <p style="margin-top:14px;">Conservez cet identifiant : il vous permet de restaurer vos mesures, favoris et panier sur un autre appareil.</p>
+          <form id="restore-id-form">
+            <div class="restore-row">
+              <input type="text" id="restore-id-input" placeholder="Saisir un ID (ex : RAMA-98A1)" aria-label="Restaurer un ID client">
+              <button type="submit" class="btn btn-outline btn-sm">Restaurer</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card" data-reveal>
+          <h3>Mes mesures de couture</h3>
+          <form id="measurements-form">
+            <div class="field-grid">
+              <div class="field"><label for="m-poitrine">Poitrine (cm)</label><input type="text" inputmode="decimal" id="m-poitrine" data-measure="poitrine"></div>
+              <div class="field"><label for="m-taille">Taille (cm)</label><input type="text" inputmode="decimal" id="m-taille" data-measure="taille"></div>
+              <div class="field"><label for="m-hanches">Hanches (cm)</label><input type="text" inputmode="decimal" id="m-hanches" data-measure="hanches"></div>
+              <div class="field"><label for="m-longueur">Longueur (cm)</label><input type="text" inputmode="decimal" id="m-longueur" data-measure="longueur"></div>
+              <div class="field"><label for="m-epaule">Épaule (cm)</label><input type="text" inputmode="decimal" id="m-epaule" data-measure="epaule"></div>
+              <div class="field"><label for="m-manche">Manche (cm)</label><input type="text" inputmode="decimal" id="m-manche" data-measure="manche"></div>
+              <div class="field"><label for="m-cou">Tour de cou (cm)</label><input type="text" inputmode="decimal" id="m-cou" data-measure="cou"></div>
+              <div class="field"><label for="m-poignet">Poignet (cm)</label><input type="text" inputmode="decimal" id="m-poignet" data-measure="poignet"></div>
+            </div>
+            <button type="submit" class="btn btn-gold btn-block">Enregistrer mes mesures</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="account-grid" style="margin-top:28px;">
+        <div class="card" data-reveal>
+          <h3>Mes favoris</h3>
+          <div class="products-grid" id="favorites-grid"></div>
+        </div>
+        <div class="card" data-reveal>
+          <h3>Mon historique</h3>
+          <ul id="history-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" style="background:var(--surface);">
+    <div class="container contact-grid">
+      <div data-reveal>
+        <p class="eyebrow">Contact</p>
+        <h2>Venez nous rendre visite</h2>
+        <ul class="contact-list">
+          <li>
+            <span class="ic">📍</span>
+            <div><h4>Siège</h4><p data-bind="siege"></p></div>
+          </li>
+          <li>
+            <span class="ic">📍</span>
+            <div><h4>Annexe</h4><p data-bind="annexe"></p></div>
+          </li>
+          <li>
+            <span class="ic">📞</span>
+            <div><h4>Téléphone / WhatsApp</h4><p data-bind="phone1Display"></p><p data-bind="phone2Display"></p></div>
+          </li>
+          <li>
+            <span class="ic">✉️</span>
+            <div><h4>Email</h4><p><a data-bind="email" href="#"></a></p></div>
+          </li>
+          <li>
+            <span class="ic">📷</span>
+            <div><h4>Réseaux sociaux</h4><p data-bind="instagram"></p></div>
+          </li>
+        </ul>
+        <div class="hero-cta" style="margin-top:22px;">
+          <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+          <a class="btn btn-outline" data-wa-link="phone2" target="_blank" rel="noopener">Deuxième ligne WhatsApp</a>
+        </div>
+      </div>
+      <div data-reveal>
+        <div class="qr-card">
+          <img src="qrcode.jpg" alt="Code QR Rama Bazin & Couture" loading="lazy">
+          <p>Scannez pour retrouver instantanément Rama Bazin &amp; Couture et le partager à vos proches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <img data-bind="logo" src="logo.jpg" alt="Rama Bazin & Couture">
+        <strong>Rama Bazin &amp; Couture</strong>
+      </div>
+      <p data-bind="slogan"></p>
+      <p>Cotonou, Bénin</p>
+    </div>
+    <div class="footer-col">
+      <h5>Navigation</h5>
+      <a href="#boutique">Boutique</a>
+      <a href="#videos">Défilés &amp; Ateliers</a>
+      <a href="#a-propos">Savoir-faire</a>
+      <a href="#compte">Mon Compte</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a data-wa-link="phone1" target="_blank" rel="noopener">WhatsApp Boutique</a>
+      <a data-bind="email" href="#"></a>
+      <span data-bind="instagram"></span>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="footer-year"></span> Rama Bazin &amp; Couture. Tous droits réservés.</span>
+    <span>Powered by <strong>EMPIRE DONKO</strong></span>
+  </div>
+</footer>
+
+<!-- ============ PANIER ============ -->
+<div id="cart-overlay" data-close-cart></div>
+<aside id="cart-drawer" aria-label="Panier">
+  <div class="cart-head">
+    <h3>Mon Panier</h3>
+    <button type="button" class="cart-close" data-close-cart aria-label="Fermer le panier">✕</button>
+  </div>
+  <div id="cart-items"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Total</span><strong id="cart-total">0 FCFA</strong></div>
+    <button type="button" class="btn btn-gold" id="cart-checkout">Commander sur WhatsApp</button>
+    <button type="button" class="btn btn-outline" id="cart-clear">Vider le panier</button>
+  </div>
+</aside>
+
+<!-- ============ BANNIÈRES PWA ============ -->
+<div class="floating-banner" id="install-banner">
+  <img src="logo.jpg" alt="">
+  <p>Installez Rama Bazin &amp; Couture pour un accès rapide, même hors-ligne.</p>
+  <div class="actions">
+    <button type="button" class="btn btn-gold btn-sm" id="install-accept">Installer</button>
+    <button type="button" class="btn btn-outline btn-sm" id="install-dismiss">Plus tard</button>
+  </div>
+</div>
+
+<div class="floating-banner" id="update-banner">
+  <img src="logo.jpg" alt="">
+  <p>Une nouvelle version du site est disponible.</p>
+  <div class="actions">
+    <button type="button" class="btn btn-gold btn-sm" id="update-refresh">Actualiser</button>
+  </div>
+</div>
+
+<button type="button" class="floating-banner is-hidden" id="ios-install-hint" style="display:none;">Installer sur iPhone</button>
+<div id="ios-install-modal">
+  <div class="ios-sheet">
+    <h4>Installation sur iPhone / iPad</h4>
+    <ol>
+      <li>Appuyez sur le bouton Partager ⬆ dans Safari.</li>
+      <li>Choisissez « Sur l'écran d'accueil » ➕.</li>
+      <li>Confirmez pour installer Rama Bazin &amp; Couture.</li>
+    </ol>
+    <button type="button" class="btn btn-gold btn-block" id="ios-install-close">Fermer</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
