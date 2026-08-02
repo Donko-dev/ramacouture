@@ -39,6 +39,7 @@
 
 <style>
 :root{
+  --bg-rgb:11,9,6;
   --ink:#0B0906;
   --surface:#151109;
   --surface-2:#1E1811;
@@ -51,6 +52,21 @@
   --radius:14px;
   --display:'Cormorant Garamond', 'Georgia', serif;
   --body:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color-scheme:dark;
+  transition:background .35s ease, color .35s ease;
+}
+html[data-theme="light"]{
+  --bg-rgb:251,248,242;
+  --ink:#FBF8F2;
+  --surface:#FFFFFF;
+  --surface-2:#F3EADA;
+  --gold:#9C6F14;
+  --gold-deep:#7E5A10;
+  --cream:#241D12;
+  --muted:#6B5F49;
+  --line:rgba(156,111,20,0.28);
+  --shadow:0 16px 40px rgba(90,70,20,0.18);
+  color-scheme:light;
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -61,6 +77,7 @@ body{
   font-family:var(--body);
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  transition:background .35s ease, color .35s ease;
 }
 body.no-scroll{overflow:hidden;}
 img{max-width:100%;display:block;}
@@ -109,11 +126,11 @@ button{font-family:inherit;cursor:pointer;}
   position:fixed;top:0;left:0;right:0;z-index:60;
   display:flex;align-items:center;justify-content:space-between;
   padding:16px 5%;
-  background:linear-gradient(to bottom, rgba(11,9,6,0.85), transparent);
+  background:linear-gradient(to bottom, rgba(var(--bg-rgb),0.85), transparent);
   transition:background .35s ease, padding .35s ease, box-shadow .35s ease;
 }
 #site-header.is-scrolled{
-  background:rgba(11,9,6,0.92);
+  background:rgba(var(--bg-rgb),0.92);
   backdrop-filter:blur(10px);
   padding:10px 5%;
   box-shadow:0 6px 24px rgba(0,0,0,0.35);
@@ -122,8 +139,10 @@ button{font-family:inherit;cursor:pointer;}
 .brand{display:flex;align-items:center;gap:.6em;}
 .brand img{width:42px;height:42px;border-radius:10px;object-fit:cover;}
 .brand-text{display:flex;flex-direction:column;line-height:1.1;}
-.brand-text strong{font-family:var(--display);font-size:1.15rem;color:var(--cream);letter-spacing:.02em;}
-.brand-text span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.brand-text strong{font-family:var(--display);font-size:1.15rem;color:#F5EFE4;letter-spacing:.02em;transition:color .35s ease;}
+.brand-text span{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#E9C25E;transition:color .35s ease;}
+#site-header.is-scrolled .brand-text strong{color:var(--cream);}
+#site-header.is-scrolled .brand-text span{color:var(--gold);}
 
 .nav-actions{display:flex;align-items:center;gap:14px;}
 #nav-menu{
@@ -137,14 +156,32 @@ button{font-family:inherit;cursor:pointer;}
 #nav-menu a{font-family:var(--display);font-size:1.4rem;color:var(--cream);}
 #nav-menu a:hover{color:var(--gold);}
 #nav-toggle{
-  width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:rgba(212,175,55,.06);
-  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(245,239,228,.3);background:rgba(11,9,6,.35);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;position:relative;
+  transition:border-color .35s ease, background .35s ease;
 }
-#nav-toggle span{display:block;width:18px;height:2px;background:var(--gold);}
+#nav-toggle span{display:block;width:18px;height:2px;background:#E9C25E;border-radius:2px;transition:transform .35s ease, opacity .35s ease, background .35s ease;}
+#nav-toggle span:nth-child(1){transform:translateY(0) rotate(0);}
+#nav-toggle span:nth-child(3){transform:translateY(0) rotate(0);}
+#nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+#nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+#nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+#site-header.is-scrolled #nav-toggle{border-color:var(--line);background:rgba(212,175,55,.06);}
+#site-header.is-scrolled #nav-toggle span{background:var(--gold);}
 .cart-btn{
-  position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);
-  background:rgba(212,175,55,.06);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--gold);
+  position:relative;width:44px;height:44px;border-radius:50%;border:1px solid rgba(245,239,228,.3);
+  background:rgba(11,9,6,.35);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#E9C25E;
+  transition:border-color .35s ease, background .35s ease, color .35s ease;
 }
+#site-header.is-scrolled .cart-btn{border-color:var(--line);background:rgba(212,175,55,.06);color:var(--gold);}
+.theme-toggle,.currency-toggle,.lang-toggle{
+  width:44px;height:44px;border-radius:50%;border:1px solid rgba(245,239,228,.3);background:rgba(11,9,6,.35);
+  display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#E9C25E;
+  transition:border-color .35s ease, background .35s ease, color .35s ease;
+}
+#site-header.is-scrolled .theme-toggle,#site-header.is-scrolled .currency-toggle,#site-header.is-scrolled .lang-toggle{border-color:var(--line);background:rgba(212,175,55,.06);color:var(--gold);}
+.lang-toggle{font-size:.78rem;font-weight:800;letter-spacing:.02em;}
+.currency-toggle{width:auto;padding:0 12px;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.02em;gap:6px;}
 .cart-badge{
   position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:999px;
   background:var(--gold);color:#1A1408;font-size:.65rem;font-weight:800;
@@ -152,6 +189,21 @@ button{font-family:inherit;cursor:pointer;}
 }
 .cart-badge.is-hidden{display:none;}
 #nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:59;}
+
+.currency-wrap{position:relative;}
+.currency-panel{
+  position:absolute;top:52px;right:0;min-width:190px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow);padding:8px;opacity:0;transform:translateY(-8px);pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;z-index:70;
+}
+.currency-panel.is-open{opacity:1;transform:none;pointer-events:auto;}
+.currency-option{
+  display:flex;justify-content:space-between;gap:10px;width:100%;padding:.65em .8em;border-radius:8px;border:0;
+  background:transparent;color:var(--cream);font-size:.85rem;text-align:left;
+}
+.currency-option:hover{background:rgba(212,175,55,.1);}
+.currency-option.is-active{color:var(--gold);font-weight:700;}
+.currency-option small{color:var(--muted);font-weight:400;}
 
 /* Hero */
 .hero{
@@ -162,14 +214,19 @@ button{font-family:inherit;cursor:pointer;}
 .hero-media img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.05);}
 .hero-scrim{
   position:absolute;inset:0;z-index:1;
+  /* Toujours sombre, même en thème clair : le texte du hero reste clair et lisible sur la photo */
   background:
-    linear-gradient(to top, rgba(11,9,6,.98) 0%, rgba(11,9,6,.55) 40%, rgba(11,9,6,.35) 65%, rgba(11,9,6,.75) 100%);
+    linear-gradient(to top, rgba(11,9,6,.98) 0%, rgba(11,9,6,.55) 40%, rgba(11,9,6,.35) 65%, rgba(11,9,6,.78) 100%);
 }
 .hero-content{position:relative;z-index:2;max-width:760px;}
-.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.03;color:var(--cream);}
-.hero h1 em{font-style:italic;color:var(--gold);}
-.hero p.lead{font-size:1.05rem;max-width:520px;}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.03;color:#F5EFE4;}
+.hero h1 em{font-style:italic;color:#E9C25E;}
+.hero p.lead{font-size:1.05rem;max-width:520px;color:#D9CFBD;}
+.hero .eyebrow{color:#E9C25E;}
+.scroll-cue{color:#D9CFBD;}
 .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:1.6em;}
+.hero-cta .btn-outline{border-color:rgba(245,239,228,.45);color:#F5EFE4;}
+.hero-cta .btn-outline:hover{border-color:#E9C25E;color:#E9C25E;}
 .scroll-cue{
   position:absolute;bottom:28px;left:5%;z-index:2;display:flex;align-items:center;gap:.6em;
   font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
@@ -226,7 +283,7 @@ section{padding:90px 0;}
 .product-actions .btn{width:100%;text-align:center;}
 .fav-btn{
   position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;
-  background:rgba(11,9,6,.55);backdrop-filter:blur(4px);border:1px solid var(--line);color:var(--cream);
+  background:rgba(var(--bg-rgb),.55);backdrop-filter:blur(4px);border:1px solid var(--line);color:var(--cream);
   font-size:1rem;display:flex;align-items:center;justify-content:center;
 }
 .fav-btn.is-active{color:var(--gold);border-color:var(--gold);}
@@ -239,7 +296,7 @@ section{padding:90px 0;}
 .video-frame{position:relative;aspect-ratio:9/13;background:var(--surface);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);}
 .video-frame video{width:100%;height:100%;object-fit:cover;}
 .video-play-overlay{
-  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(11,9,6,.28);
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(var(--bg-rgb),.28);
   border:0;
 }
 .video-card.is-playing .video-play-overlay{opacity:0;pointer-events:none;}
@@ -249,7 +306,7 @@ section{padding:90px 0;}
 }
 .video-controls{
   position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;
-  padding:10px 12px;background:linear-gradient(to top, rgba(11,9,6,.85), transparent);
+  padding:10px 12px;background:linear-gradient(to top, rgba(var(--bg-rgb),.85), transparent);
   opacity:0;transition:opacity .25s ease;
 }
 .video-card.is-playing .video-controls,.video-frame:hover .video-controls{opacity:1;}
@@ -297,6 +354,37 @@ figcaption{margin-top:12px;color:var(--cream);font-family:var(--display);font-si
 .contact-list p{margin:0;font-size:.88rem;}
 .qr-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;}
 .qr-card img{width:170px;height:170px;margin:0 auto 14px;border-radius:10px;border:1px solid var(--line);}
+
+/* Boutons de contact — logos officiels */
+.contact-icon-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:24px;}
+.icon-btn{
+  position:relative;display:inline-flex;align-items:center;gap:.65em;padding:.8em 1.4em;border-radius:999px;
+  font-weight:700;font-size:.85rem;color:#fff;box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+.icon-btn svg{width:22px;height:22px;flex-shrink:0;}
+.icon-btn.whatsapp{background:#25D366;}
+.icon-btn.mail{background:#4285F4;}
+.icon-btn.pulse::after{
+  content:"";position:absolute;inset:0;border-radius:999px;border:2px solid currentColor;
+  animation:pulseRing 1.8s ease-out infinite;
+}
+.icon-btn.whatsapp.pulse::after{color:#25D366;}
+@keyframes pulseRing{0%{transform:scale(1);opacity:.65;}100%{transform:scale(1.4);opacity:0;}}
+
+/* Réseaux sociaux — couleurs officielles */
+.social-icons{display:flex;gap:12px;flex-wrap:wrap;}
+.social-icon{
+  width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;transition:transform .25s ease, box-shadow .25s ease;box-shadow:0 6px 16px rgba(0,0,0,.25);
+}
+.social-icon:hover{transform:translateY(-3px) scale(1.05);}
+.social-icon svg{width:21px;height:21px;}
+.social-icon.instagram{background:radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);}
+.social-icon.facebook{background:#1877F2;}
+.social-icon.tiktok{background:#010101;}
+.social-icon.snapchat{background:#FFFC00;color:#111;}
+.social-icon.whatsapp{background:#25D366;}
+.social-icon.mail{background:#4285F4;}
 
 /* Footer */
 footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0 26px;}
@@ -347,6 +435,38 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
 }
 .rama-toast.is-visible{opacity:1;transform:none;}
 
+/* Modal détail produit */
+#product-modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.68);z-index:120;opacity:0;pointer-events:none;
+  transition:opacity .3s ease;display:flex;align-items:flex-end;justify-content:center;
+}
+#product-modal-overlay.is-open{opacity:1;pointer-events:auto;}
+@media(min-width:760px){#product-modal-overlay{align-items:center;}}
+.product-modal{
+  background:var(--surface);border:1px solid var(--line);border-radius:20px 20px 0 0;width:100%;max-width:760px;
+  max-height:92vh;overflow-y:auto;transform:translateY(30px);transition:transform .35s cubic-bezier(.7,0,.2,1);
+}
+#product-modal-overlay.is-open .product-modal{transform:translateY(0);}
+@media(min-width:760px){.product-modal{border-radius:20px;}}
+.product-modal-grid{display:grid;grid-template-columns:1fr;}
+@media(min-width:640px){.product-modal-grid{grid-template-columns:1fr 1fr;}}
+.product-modal-media{position:relative;aspect-ratio:3/4;background:var(--surface-2);}
+.product-modal-media img{width:100%;height:100%;object-fit:cover;}
+.product-modal-close{
+  position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(var(--bg-rgb),.55);backdrop-filter:blur(4px);color:var(--cream);font-size:1.1rem;z-index:2;
+}
+.product-modal-body{padding:26px 24px 30px;}
+.product-modal-cat{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.product-modal-name{font-size:1.7rem;margin:.2em 0 .3em;}
+.product-modal-price{font-family:var(--body);font-weight:800;color:var(--gold);font-size:1.2rem;margin-bottom:16px;}
+.product-modal-desc{color:var(--muted);font-size:.92rem;line-height:1.65;margin-bottom:22px;}
+.product-modal-qty{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.product-modal-qty button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--cream);font-size:1.1rem;}
+.product-modal-qty span{min-width:24px;text-align:center;font-weight:700;}
+.product-modal-actions{display:flex;flex-direction:column;gap:10px;}
+.product-media,.product-name{cursor:pointer;}
+
 /* Install / update banners */
 .floating-banner{
   position:fixed;left:16px;right:16px;bottom:16px;z-index:150;background:var(--surface);border:1px solid var(--line);
@@ -385,6 +505,18 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
     </span>
   </a>
   <div class="nav-actions">
+    <div class="currency-wrap">
+      <button type="button" class="currency-toggle" id="currency-toggle" aria-haspopup="listbox" aria-expanded="false">
+        <span id="currency-current">FCFA</span> <span aria-hidden="true">▾</span>
+      </button>
+      <div class="currency-panel" id="currency-panel" role="listbox"></div>
+    </div>
+    <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language / Changer de langue">
+      <span id="lang-current">FR</span>
+    </button>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+      <span id="theme-icon" aria-hidden="true">☀️</span>
+    </button>
     <button type="button" class="cart-btn" data-open-cart aria-label="Voir le panier">
       🛍️<span class="cart-badge is-hidden" data-cart-count>0</span>
     </button>
@@ -393,13 +525,13 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
     </button>
   </div>
   <nav id="nav-menu" aria-label="Navigation principale">
-    <a href="#accueil">Accueil</a>
-    <a href="#boutique">Boutique</a>
-    <a href="#videos">Défilés &amp; Ateliers</a>
-    <a href="#a-propos">Notre Savoir-faire</a>
-    <a href="#compte">Mon Compte</a>
-    <a href="#contact">Contact</a>
-    <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener">Commander sur WhatsApp</a>
+    <a href="#accueil" data-i18n="nav.home">Accueil</a>
+    <a href="#boutique" data-i18n="nav.boutique">Boutique</a>
+    <a href="#videos" data-i18n="nav.videos">Défilés &amp; Ateliers</a>
+    <a href="#a-propos" data-i18n="nav.about">Notre Savoir-faire</a>
+    <a href="#compte" data-i18n="nav.account">Mon Compte</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+    <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener" data-i18n="nav.orderWhatsapp">Commander sur WhatsApp</a>
   </nav>
 </header>
 <div id="nav-overlay"></div>
@@ -413,24 +545,24 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
     </div>
     <div class="hero-scrim"></div>
     <div class="container hero-content">
-      <p class="eyebrow">Cotonou · Bénin</p>
-      <h1>L'excellence du <em>Bazin</em><br>&amp; de la Couture</h1>
-      <p class="lead">Bazin VIP, Bazin Miel, Getzner et créations Haute Couture façonnés avec exigence, pour sublimer chaque cérémonie.</p>
+      <p class="eyebrow" data-i18n="hero.eyebrow">Cotonou · Bénin</p>
+      <h1 data-i18n-html="hero.title">L'excellence du <em>Bazin</em><br>&amp; de la Couture</h1>
+      <p class="lead" data-i18n="hero.lead">Bazin VIP, Bazin Miel, Getzner et créations Haute Couture façonnés avec exigence, pour sublimer chaque cérémonie.</p>
       <div class="hero-cta">
-        <a href="#boutique" class="btn btn-gold">Découvrir la boutique</a>
-        <a href="#contact" class="btn btn-outline">Prendre rendez-vous</a>
+        <a href="#boutique" class="btn btn-gold" data-i18n="hero.cta1">Découvrir la boutique</a>
+        <a href="#contact" class="btn btn-outline" data-i18n="hero.cta2">Prendre rendez-vous</a>
       </div>
     </div>
-    <span class="scroll-cue">Défiler</span>
+    <span class="scroll-cue" data-i18n="hero.scroll">Défiler</span>
   </section>
 
   <!-- ============ SÉLECTION DU MOMENT ============ -->
   <section aria-labelledby="featured-title">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Sélection</p>
-        <h2 id="featured-title">Nos pièces du moment</h2>
-        <p>Un aperçu des créations les plus demandées de la saison.</p>
+        <p class="eyebrow" data-i18n="featured.eyebrow">Sélection</p>
+        <h2 id="featured-title" data-i18n="featured.title">Nos pièces du moment</h2>
+        <p data-i18n="featured.lead">Un aperçu des créations les plus demandées de la saison.</p>
       </div>
       <div class="products-grid" id="featured-grid" data-reveal></div>
     </div>
@@ -440,12 +572,12 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
   <section id="boutique" style="background:var(--surface);">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Boutique</p>
-        <h2>Toute la collection</h2>
-        <p>Filtrez par catégorie ou recherchez une pièce précise. Chaque article peut être ajouté au panier ou commandé directement sur WhatsApp.</p>
+        <p class="eyebrow" data-i18n="boutique.eyebrow">Boutique</p>
+        <h2 data-i18n="boutique.title">Toute la collection</h2>
+        <p data-i18n="boutique.lead">Filtrez par catégorie ou recherchez une pièce précise. Chaque article peut être ajouté au panier ou commandé directement sur WhatsApp.</p>
       </div>
       <div class="search-row" data-reveal>
-        <input type="search" id="product-search" placeholder="Rechercher un article…" aria-label="Rechercher un article">
+        <input type="search" id="product-search" placeholder="Rechercher un article…" aria-label="Rechercher un article" data-i18n-placeholder="boutique.searchPlaceholder" data-i18n-aria="boutique.searchPlaceholder">
       </div>
       <div class="filters-bar" id="category-filters" data-reveal></div>
       <div class="products-grid" id="products-grid" data-reveal></div>
@@ -456,9 +588,9 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
   <section id="videos">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">En mouvement</p>
-        <h2>Défilés &amp; Ateliers</h2>
-        <p>Regardez nos vidéos directement sur la page, sans jamais quitter le site.</p>
+        <p class="eyebrow" data-i18n="videos.eyebrow">En mouvement</p>
+        <h2 data-i18n="videos.title">Défilés &amp; Ateliers</h2>
+        <p data-i18n="videos.lead">Regardez nos vidéos directement sur la page, sans jamais quitter le site.</p>
       </div>
       <div class="videos-grid" id="videos-grid" data-reveal></div>
     </div>
@@ -473,13 +605,13 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
         </div>
       </div>
       <div data-reveal>
-        <p class="eyebrow">Notre Savoir-faire</p>
-        <h2>Une exigence transmise avec passion</h2>
-        <p>Chez Rama Bazin &amp; Couture, chaque tissu est choisi avec soin et chaque création est pensée pour révéler votre allure. De la sélection du Bazin le plus riche jusqu'à la dernière finition d'un ensemble Haute Couture, notre atelier de Cotonou met son savoir-faire au service de votre élégance.</p>
+        <p class="eyebrow" data-i18n="about.eyebrow">Notre Savoir-faire</p>
+        <h2 data-i18n="about.title">Une exigence transmise avec passion</h2>
+        <p data-i18n="about.lead">Chez Rama Bazin &amp; Couture, chaque tissu est choisi avec soin et chaque création est pensée pour révéler votre allure. De la sélection du Bazin le plus riche jusqu'à la dernière finition d'un ensemble Haute Couture, notre atelier de Cotonou met son savoir-faire au service de votre élégance.</p>
         <div class="stat-row">
-          <div class="stat"><b>5</b><span>Catégories</span></div>
-          <div class="stat"><b>2</b><span>Adresses à Cotonou</span></div>
-          <div class="stat"><b>100%</b><span>Sur-mesure disponible</span></div>
+          <div class="stat"><b>5</b><span data-i18n="about.stat1">Catégories</span></div>
+          <div class="stat"><b>2</b><span data-i18n="about.stat2">Adresses à Cotonou</span></div>
+          <div class="stat"><b>100%</b><span data-i18n="about.stat3">Sur-mesure disponible</span></div>
         </div>
       </div>
     </div>
@@ -489,52 +621,52 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
   <section id="compte">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Espace Cliente</p>
-        <h2>Mon Compte</h2>
-        <p>Vos mesures, favoris et historique sont conservés sur cet appareil. Utilisez votre ID Client pour les retrouver sur un autre téléphone.</p>
+        <p class="eyebrow" data-i18n="account.eyebrow">Espace Cliente</p>
+        <h2 data-i18n="account.title">Mon Compte</h2>
+        <p data-i18n="account.lead">Vos mesures, favoris et historique sont conservés sur cet appareil. Utilisez votre ID Client pour les retrouver sur un autre téléphone.</p>
       </div>
 
       <div class="account-grid">
         <div class="card" data-reveal>
-          <h3>Mon ID Client</h3>
+          <h3 data-i18n="account.idTitle">Mon ID Client</h3>
           <div class="client-id-box">
             <strong id="client-id-display">RAMA-0000</strong>
-            <button type="button" class="btn btn-ghost btn-sm" id="copy-client-id">Copier mon ID</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="copy-client-id" data-i18n="account.copyId">Copier mon ID</button>
           </div>
-          <p style="margin-top:14px;">Conservez cet identifiant : il vous permet de restaurer vos mesures, favoris et panier sur un autre appareil.</p>
+          <p style="margin-top:14px;" data-i18n="account.idHint">Conservez cet identifiant : il vous permet de restaurer vos mesures, favoris et panier sur un autre appareil.</p>
           <form id="restore-id-form">
             <div class="restore-row">
-              <input type="text" id="restore-id-input" placeholder="Saisir un ID (ex : RAMA-98A1)" aria-label="Restaurer un ID client">
-              <button type="submit" class="btn btn-outline btn-sm">Restaurer</button>
+              <input type="text" id="restore-id-input" placeholder="Saisir un ID (ex : RAMA-98A1)" aria-label="Restaurer un ID client" data-i18n-placeholder="account.restorePlaceholder" data-i18n-aria="account.restorePlaceholder">
+              <button type="submit" class="btn btn-outline btn-sm" data-i18n="account.restore">Restaurer</button>
             </div>
           </form>
         </div>
 
         <div class="card" data-reveal>
-          <h3>Mes mesures de couture</h3>
+          <h3 data-i18n="account.measurementsTitle">Mes mesures de couture</h3>
           <form id="measurements-form">
             <div class="field-grid">
-              <div class="field"><label for="m-poitrine">Poitrine (cm)</label><input type="text" inputmode="decimal" id="m-poitrine" data-measure="poitrine"></div>
-              <div class="field"><label for="m-taille">Taille (cm)</label><input type="text" inputmode="decimal" id="m-taille" data-measure="taille"></div>
-              <div class="field"><label for="m-hanches">Hanches (cm)</label><input type="text" inputmode="decimal" id="m-hanches" data-measure="hanches"></div>
-              <div class="field"><label for="m-longueur">Longueur (cm)</label><input type="text" inputmode="decimal" id="m-longueur" data-measure="longueur"></div>
-              <div class="field"><label for="m-epaule">Épaule (cm)</label><input type="text" inputmode="decimal" id="m-epaule" data-measure="epaule"></div>
-              <div class="field"><label for="m-manche">Manche (cm)</label><input type="text" inputmode="decimal" id="m-manche" data-measure="manche"></div>
-              <div class="field"><label for="m-cou">Tour de cou (cm)</label><input type="text" inputmode="decimal" id="m-cou" data-measure="cou"></div>
-              <div class="field"><label for="m-poignet">Poignet (cm)</label><input type="text" inputmode="decimal" id="m-poignet" data-measure="poignet"></div>
+              <div class="field"><label for="m-poitrine" data-i18n="measure.poitrine">Poitrine (cm)</label><input type="text" inputmode="decimal" id="m-poitrine" data-measure="poitrine"></div>
+              <div class="field"><label for="m-taille" data-i18n="measure.taille">Taille (cm)</label><input type="text" inputmode="decimal" id="m-taille" data-measure="taille"></div>
+              <div class="field"><label for="m-hanches" data-i18n="measure.hanches">Hanches (cm)</label><input type="text" inputmode="decimal" id="m-hanches" data-measure="hanches"></div>
+              <div class="field"><label for="m-longueur" data-i18n="measure.longueur">Longueur (cm)</label><input type="text" inputmode="decimal" id="m-longueur" data-measure="longueur"></div>
+              <div class="field"><label for="m-epaule" data-i18n="measure.epaule">Épaule (cm)</label><input type="text" inputmode="decimal" id="m-epaule" data-measure="epaule"></div>
+              <div class="field"><label for="m-manche" data-i18n="measure.manche">Manche (cm)</label><input type="text" inputmode="decimal" id="m-manche" data-measure="manche"></div>
+              <div class="field"><label for="m-cou" data-i18n="measure.cou">Tour de cou (cm)</label><input type="text" inputmode="decimal" id="m-cou" data-measure="cou"></div>
+              <div class="field"><label for="m-poignet" data-i18n="measure.poignet">Poignet (cm)</label><input type="text" inputmode="decimal" id="m-poignet" data-measure="poignet"></div>
             </div>
-            <button type="submit" class="btn btn-gold btn-block">Enregistrer mes mesures</button>
+            <button type="submit" class="btn btn-gold btn-block" data-i18n="account.saveMeasurements">Enregistrer mes mesures</button>
           </form>
         </div>
       </div>
 
       <div class="account-grid" style="margin-top:28px;">
         <div class="card" data-reveal>
-          <h3>Mes favoris</h3>
+          <h3 data-i18n="account.favoritesTitle">Mes favoris</h3>
           <div class="products-grid" id="favorites-grid"></div>
         </div>
         <div class="card" data-reveal>
-          <h3>Mon historique</h3>
+          <h3 data-i18n="account.historyTitle">Mon historique</h3>
           <ul id="history-list"></ul>
         </div>
       </div>
@@ -545,39 +677,47 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
   <section id="contact" style="background:var(--surface);">
     <div class="container contact-grid">
       <div data-reveal>
-        <p class="eyebrow">Contact</p>
-        <h2>Venez nous rendre visite</h2>
+        <p class="eyebrow" data-i18n="contact.eyebrow">Contact</p>
+        <h2 data-i18n="contact.title">Venez nous rendre visite</h2>
         <ul class="contact-list">
           <li>
             <span class="ic">📍</span>
-            <div><h4>Siège</h4><p data-bind="siege"></p></div>
+            <div><h4 data-i18n="contact.headOffice">Siège</h4><p data-bind="siege"></p></div>
           </li>
           <li>
             <span class="ic">📍</span>
-            <div><h4>Annexe</h4><p data-bind="annexe"></p></div>
+            <div><h4 data-i18n="contact.annex">Annexe</h4><p data-bind="annexe"></p></div>
           </li>
           <li>
             <span class="ic">📞</span>
-            <div><h4>Téléphone / WhatsApp</h4><p data-bind="phone1Display"></p><p data-bind="phone2Display"></p></div>
+            <div><h4 data-i18n="contact.phone">Téléphone / WhatsApp</h4><p data-bind="phone1Display"></p><p data-bind="phone2Display"></p></div>
           </li>
           <li>
             <span class="ic">✉️</span>
-            <div><h4>Email</h4><p><a data-bind="email" href="#"></a></p></div>
-          </li>
-          <li>
-            <span class="ic">📷</span>
-            <div><h4>Réseaux sociaux</h4><p data-bind="instagram"></p></div>
+            <div><h4 data-i18n="contact.email">Email</h4><p><a data-bind="email" href="#"></a></p></div>
           </li>
         </ul>
-        <div class="hero-cta" style="margin-top:22px;">
-          <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
-          <a class="btn btn-outline" data-wa-link="phone2" target="_blank" rel="noopener">Deuxième ligne WhatsApp</a>
+        <div class="contact-icon-row">
+          <a class="icon-btn whatsapp pulse" data-wa-link="phone1" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.29-1.39a9.87 9.87 0 0 0 4.7 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.11c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.11.1-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.36c.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.57.81 1.98.88 2.12.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.61-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+            <span data-i18n="contact.whatsappBtn">Écrire sur WhatsApp</span>
+          </a>
+          <a class="icon-btn whatsapp" data-wa-link="phone2" target="_blank" rel="noopener" aria-label="WhatsApp — deuxième ligne">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.29-1.39a9.87 9.87 0 0 0 4.7 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.79 14.11c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.11.1-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.36c.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.57.81 1.98.88 2.12.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.61-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg>
+            <span data-i18n="contact.whatsapp2Btn">Deuxième ligne WhatsApp</span>
+          </a>
+          <a class="icon-btn mail" data-bind-href="mailtoLink" href="#" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+            <span data-i18n="contact.mailBtn">Envoyer un email</span>
+          </a>
         </div>
+        <p class="eyebrow" style="margin-top:26px;" data-i18n="contact.socialsTitle">Réseaux sociaux</p>
+        <div class="social-icons" id="social-icons-contact"></div>
       </div>
       <div data-reveal>
         <div class="qr-card">
           <img src="qrcode.jpg" alt="Code QR Rama Bazin & Couture" loading="lazy">
-          <p>Scannez pour retrouver instantanément Rama Bazin &amp; Couture et le partager à vos proches.</p>
+          <p data-i18n="contact.qrText">Scannez pour retrouver instantanément Rama Bazin &amp; Couture et le partager à vos proches.</p>
         </div>
       </div>
     </div>
@@ -595,70 +735,98 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
       </div>
       <p data-bind="slogan"></p>
       <p>Cotonou, Bénin</p>
+      <div class="social-icons" id="social-icons-footer" style="margin-top:14px;"></div>
     </div>
     <div class="footer-col">
-      <h5>Navigation</h5>
-      <a href="#boutique">Boutique</a>
-      <a href="#videos">Défilés &amp; Ateliers</a>
-      <a href="#a-propos">Savoir-faire</a>
-      <a href="#compte">Mon Compte</a>
+      <h5 data-i18n="footer.navigation">Navigation</h5>
+      <a href="#boutique" data-i18n="nav.boutique">Boutique</a>
+      <a href="#videos" data-i18n="nav.videos">Défilés &amp; Ateliers</a>
+      <a href="#a-propos" data-i18n="nav.about">Savoir-faire</a>
+      <a href="#compte" data-i18n="nav.account">Mon Compte</a>
     </div>
     <div class="footer-col">
-      <h5>Contact</h5>
-      <a data-wa-link="phone1" target="_blank" rel="noopener">WhatsApp Boutique</a>
+      <h5 data-i18n="nav.contact">Contact</h5>
+      <a data-wa-link="phone1" target="_blank" rel="noopener" data-i18n="footer.whatsappShop">WhatsApp Boutique</a>
       <a data-bind="email" href="#"></a>
       <span data-bind="instagram"></span>
     </div>
   </div>
   <div class="container footer-bottom">
-    <span>© <span id="footer-year"></span> Rama Bazin &amp; Couture. Tous droits réservés.</span>
+    <span>© <span id="footer-year"></span> Rama Bazin &amp; Couture. <span data-i18n="footer.rights">Tous droits réservés.</span></span>
     <span>Powered by <strong>EMPIRE DONKO</strong></span>
   </div>
 </footer>
+
+<!-- ============ MODAL DÉTAIL PRODUIT ============ -->
+<div id="product-modal-overlay">
+  <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="product-modal-name">
+    <div class="product-modal-grid">
+      <div class="product-modal-media">
+        <button type="button" class="product-modal-close" id="product-modal-close" aria-label="Fermer">✕</button>
+        <img id="product-modal-img" src="" alt="">
+      </div>
+      <div class="product-modal-body">
+        <span class="product-modal-cat" id="product-modal-cat"></span>
+        <h3 class="product-modal-name" id="product-modal-name"></h3>
+        <p class="product-modal-price" id="product-modal-price"></p>
+        <p class="product-modal-desc" id="product-modal-desc"></p>
+        <div class="product-modal-qty">
+          <button type="button" id="product-modal-qty-minus" aria-label="Diminuer">−</button>
+          <span id="product-modal-qty-value">1</span>
+          <button type="button" id="product-modal-qty-plus" aria-label="Augmenter">+</button>
+        </div>
+        <div class="product-modal-actions">
+          <button type="button" class="btn btn-gold btn-block" id="product-modal-add" data-i18n="product.addToCart">Ajouter au panier</button>
+          <a class="btn btn-outline btn-block" id="product-modal-wa" target="_blank" rel="noopener" data-i18n="product.orderWhatsapp">Commander WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ============ PANIER ============ -->
 <div id="cart-overlay" data-close-cart></div>
 <aside id="cart-drawer" aria-label="Panier">
   <div class="cart-head">
-    <h3>Mon Panier</h3>
+    <h3 data-i18n="cart.title">Mon Panier</h3>
     <button type="button" class="cart-close" data-close-cart aria-label="Fermer le panier">✕</button>
   </div>
   <div id="cart-items"></div>
   <div class="cart-foot">
-    <div class="cart-total-row"><span>Total</span><strong id="cart-total">0 FCFA</strong></div>
-    <button type="button" class="btn btn-gold" id="cart-checkout">Commander sur WhatsApp</button>
-    <button type="button" class="btn btn-outline" id="cart-clear">Vider le panier</button>
+    <div class="cart-total-row"><span data-i18n="cart.total">Total</span><strong id="cart-total">0 FCFA</strong></div>
+    <button type="button" class="btn btn-gold" id="cart-checkout" data-i18n="cart.checkout">Commander sur WhatsApp</button>
+    <button type="button" class="btn btn-outline" id="cart-clear" data-i18n="cart.clear">Vider le panier</button>
   </div>
 </aside>
 
 <!-- ============ BANNIÈRES PWA ============ -->
 <div class="floating-banner" id="install-banner">
   <img src="logo.jpg" alt="">
-  <p>Installez Rama Bazin &amp; Couture pour un accès rapide, même hors-ligne.</p>
+  <p data-i18n="pwa.installText">Installez Rama Bazin &amp; Couture pour un accès rapide, même hors-ligne.</p>
   <div class="actions">
-    <button type="button" class="btn btn-gold btn-sm" id="install-accept">Installer</button>
-    <button type="button" class="btn btn-outline btn-sm" id="install-dismiss">Plus tard</button>
+    <button type="button" class="btn btn-gold btn-sm" id="install-accept" data-i18n="pwa.install">Installer</button>
+    <button type="button" class="btn btn-outline btn-sm" id="install-dismiss" data-i18n="pwa.later">Plus tard</button>
   </div>
 </div>
 
 <div class="floating-banner" id="update-banner">
   <img src="logo.jpg" alt="">
-  <p>Une nouvelle version du site est disponible.</p>
+  <p data-i18n="pwa.updateText">Une nouvelle version du site est disponible.</p>
   <div class="actions">
-    <button type="button" class="btn btn-gold btn-sm" id="update-refresh">Actualiser</button>
+    <button type="button" class="btn btn-gold btn-sm" id="update-refresh" data-i18n="pwa.refresh">Actualiser</button>
   </div>
 </div>
 
-<button type="button" class="floating-banner is-hidden" id="ios-install-hint" style="display:none;">Installer sur iPhone</button>
+<button type="button" class="floating-banner is-hidden" id="ios-install-hint" style="display:none;" data-i18n="pwa.installIos">Installer sur iPhone</button>
 <div id="ios-install-modal">
   <div class="ios-sheet">
-    <h4>Installation sur iPhone / iPad</h4>
+    <h4 data-i18n="pwa.iosTitle">Installation sur iPhone / iPad</h4>
     <ol>
-      <li>Appuyez sur le bouton Partager ⬆ dans Safari.</li>
-      <li>Choisissez « Sur l'écran d'accueil » ➕.</li>
-      <li>Confirmez pour installer Rama Bazin &amp; Couture.</li>
+      <li data-i18n="pwa.iosStep1">Appuyez sur le bouton Partager ⬆ dans Safari.</li>
+      <li data-i18n="pwa.iosStep2">Choisissez « Sur l'écran d'accueil » ➕.</li>
+      <li data-i18n="pwa.iosStep3">Confirmez pour installer Rama Bazin &amp; Couture.</li>
     </ol>
-    <button type="button" class="btn btn-gold btn-block" id="ios-install-close">Fermer</button>
+    <button type="button" class="btn btn-gold btn-block" id="ios-install-close" data-i18n="pwa.close">Fermer</button>
   </div>
 </div>
 

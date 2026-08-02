@@ -2,7 +2,9 @@
   "meta": {
     "siteName": "Rama Bazin & Couture",
     "slogan": "L'excellence du Bazin & de la Couture au Bénin",
+    "slogan_en": "The Excellence of Bazin & Couture in Benin",
     "description": "Boutique de Bazin et Haute Couture à Cotonou, Bénin. Bazin VIP, Bazin Miel, Getzner, Haute Couture et accessoires. Commandez directement sur WhatsApp.",
+    "description_en": "Bazin and Haute Couture boutique in Cotonou, Benin. Bazin VIP, Bazin Miel, Getzner, Haute Couture and accessories. Order directly on WhatsApp.",
     "phone1": "+2290197384949",
     "phone1Display": "+229 01 97 38 49 49",
     "phone1Wa": "2290197384949",
@@ -12,127 +14,172 @@
     "email": "jasminemarafa11@gmail.com",
     "instagram": "@ramabazinetcouture",
     "siege": "Dernière rue à droite avant le carrefour Caboma, sur le pavé, en face de l'église St Michel, Cotonou, Bénin.",
+    "siege_en": "Last street on the right before Caboma junction, on the paved road, opposite St Michel church, Cotonou, Benin.",
     "annexe": "5ème rue à droite du pavé, en face de l'église St Michel, Cotonou, Bénin.",
+    "annexe_en": "5th street on the right of the paved road, opposite St Michel church, Cotonou, Benin.",
     "logo": "logo.jpg",
     "ogImage": "og-image.jpg",
     "qrcode": "qrcode.jpg",
     "heroImage": "hero.jpg",
-    "heroVideo": "hero.mp4"
+    "heroVideo": "hero.mp4",
+    "socials": {
+      "instagram": "https://instagram.com/ramabazinetcouture",
+      "facebook": "https://facebook.com/ramabazinetcouture",
+      "tiktok": "https://tiktok.com/@ramabazinetcouture",
+      "snapchat": "https://snapchat.com/add/ramabazinetcouture"
+    },
+    "currencies": [
+      { "code": "XOF", "label": "FCFA (Bénin)", "symbol": "FCFA", "rate": 1 },
+      { "code": "GNF", "label": "FCFA Guinéen", "symbol": "GNF", "rate": 14.3 },
+      { "code": "EUR", "label": "Euro", "symbol": "€", "rate": 0.001524 },
+      { "code": "USD", "label": "Dollar US", "symbol": "$", "rate": 0.00164 }
+    ],
+    "design": {
+      "colorGold": "#D4AF37",
+      "colorGoldDeep": "#C5A059",
+      "fontDisplay": "Cormorant Garamond",
+      "fontBody": "Manrope",
+      "baseFontSize": 16
+    }
   },
   "categories": [
-    { "id": "bazin-vip", "label": "Bazin VIP" },
-    { "id": "bazin-miel", "label": "Bazin Miel" },
-    { "id": "getzner", "label": "Getzner" },
-    { "id": "haute-couture", "label": "Haute Couture" },
-    { "id": "accessoires", "label": "Accessoires" }
+    { "id": "bazin-vip", "label": "Bazin VIP", "label_en": "Bazin VIP" },
+    { "id": "bazin-miel", "label": "Bazin Miel", "label_en": "Bazin Miel" },
+    { "id": "getzner", "label": "Getzner", "label_en": "Getzner" },
+    { "id": "haute-couture", "label": "Haute Couture", "label_en": "Haute Couture" },
+    { "id": "accessoires", "label": "Accessoires", "label_en": "Accessories" }
   ],
   "products": [
     {
       "id": "p001",
       "name": "Bazin Riche VIP Doré",
+      "name_en": "Golden Bazin Riche VIP",
       "category": "bazin-vip",
       "price": 45000,
       "image": "bazin_vip_1.jpg",
-      "description": "Bazin Riche VIP, éclat intense et tissage premium, idéal pour les grandes cérémonies.",
+      "description": "Bazin Riche VIP, éclat intense et tissage premium, idéal pour les grandes cérémonies. Ce tissu est réputé pour sa brillance signature obtenue par un battage traditionnel, sa densité qui lui donne une belle tenue, et sa capacité à retenir l'amidon pour un tombé impeccable lors de vos événements les plus prestigieux.",
+      "description_en": "VIP Rich Bazin, intense shine and premium weave, ideal for grand ceremonies. Known for its signature glow achieved through traditional beating, its density for a beautiful drape, and its ability to hold starch for a flawless finish at your most prestigious events.",
       "featured": true
     },
     {
       "id": "p002",
       "name": "Bazin Miel Impérial",
+      "name_en": "Imperial Honey Bazin",
       "category": "bazin-miel",
       "price": 32000,
       "image": "bazin_miel_1.jpg",
-      "description": "Bazin Miel doux et brillant, parfait pour un style élégant au quotidien.",
+      "description": "Bazin Miel doux et brillant, parfait pour un style élégant au quotidien. Sa texture plus légère que le Bazin Riche en fait un excellent choix pour les tenues de bureau, les sorties en famille ou les cérémonies plus intimes, sans jamais sacrifier l'élégance.",
+      "description_en": "Soft and shiny Honey Bazin, perfect for an elegant everyday style. Lighter than Bazin Riche, it's an excellent choice for office wear, family outings or more intimate ceremonies, without ever sacrificing elegance.",
       "featured": true
     },
     {
       "id": "p003",
       "name": "Getzner Prestige Bleu Nuit",
+      "name_en": "Getzner Prestige Midnight Blue",
       "category": "getzner",
       "price": 55000,
       "image": "getzner_1.jpg",
-      "description": "Getzner authentique, texture noble et tenue impeccable dans le temps.",
+      "description": "Getzner authentique, texture noble et tenue impeccable dans le temps. Ce tissu haut de gamme, importé et reconnu pour sa qualité supérieure, garde sa forme et sa couleur lavage après lavage, un investissement durable pour votre garde-robe de cérémonie.",
+      "description_en": "Authentic Getzner, noble texture and impeccable long-term hold. This premium imported fabric, renowned for its superior quality, keeps its shape and color wash after wash — a lasting investment for your ceremonial wardrobe.",
       "featured": true
     },
     {
       "id": "p004",
       "name": "Ensemble Haute Couture Amara",
+      "name_en": "Amara Haute Couture Ensemble",
       "category": "haute-couture",
       "price": 120000,
       "image": "couture_1.jpg",
-      "description": "Création sur-mesure, broderies fines et finitions haut de gamme.",
+      "description": "Création sur-mesure, broderies fines et finitions haut de gamme. Chaque pièce est confectionnée dans notre atelier de Cotonou selon vos mesures exactes, avec un choix de broderies personnalisées pour un rendu unique et raffiné.",
+      "description_en": "Made-to-measure creation, fine embroidery and premium finishes. Each piece is crafted in our Cotonou workshop to your exact measurements, with a choice of personalized embroidery for a unique and refined result.",
       "featured": true
     },
     {
       "id": "p005",
       "name": "Bazin VIP Grenat",
+      "name_en": "Garnet Bazin VIP",
       "category": "bazin-vip",
       "price": 47000,
       "image": "bazin_vip_2.jpg",
-      "description": "Coloris grenat profond, tissage dense, pour une allure royale.",
+      "description": "Coloris grenat profond, tissage dense, pour une allure royale. Un choix audacieux et raffiné qui se distingue lors de toute cérémonie, mariage ou événement officiel.",
+      "description_en": "Deep garnet color, dense weave, for a truly royal look. A bold and refined choice that stands out at any ceremony, wedding or official event.",
       "featured": false
     },
     {
       "id": "p006",
       "name": "Bazin Miel Émeraude",
+      "name_en": "Emerald Honey Bazin",
       "category": "bazin-miel",
       "price": 33000,
       "image": "bazin_miel_2.jpg",
-      "description": "Vert émeraude lumineux, souplesse et confort pour toute occasion.",
+      "description": "Vert émeraude lumineux, souplesse et confort pour toute occasion. Facile à entretenir et agréable à porter, ce coloris s'accorde avec de nombreux accessoires dorés.",
+      "description_en": "Bright emerald green, soft and comfortable for any occasion. Easy to care for and pleasant to wear, this shade pairs beautifully with gold accessories.",
       "featured": false
     },
     {
       "id": "p007",
       "name": "Getzner Ivoire Cérémonie",
+      "name_en": "Getzner Ivory Ceremony",
       "category": "getzner",
       "price": 58000,
       "image": "getzner_2.jpg",
-      "description": "Ivoire éclatant, coupe raffinée pour mariages et cérémonies.",
+      "description": "Ivoire éclatant, coupe raffinée pour mariages et cérémonies. Un blanc cassé lumineux qui met en valeur les broderies et se prête particulièrement bien aux tenues de mariage.",
+      "description_en": "Radiant ivory, refined cut for weddings and ceremonies. A luminous off-white that highlights embroidery and is particularly well suited to wedding attire.",
       "featured": false
     },
     {
       "id": "p008",
       "name": "Robe Haute Couture Zohra",
+      "name_en": "Zohra Haute Couture Dress",
       "category": "haute-couture",
       "price": 135000,
       "image": "couture_2.jpg",
-      "description": "Robe d'exception, patron exclusif Rama Couture, ajustement sur mesure.",
+      "description": "Robe d'exception, patron exclusif Rama Couture, ajustement sur mesure. Coupe étudiée pour sublimer la silhouette, finitions main et doublure intérieure de qualité.",
+      "description_en": "An exceptional dress, exclusive Rama Couture pattern, tailored fit. A cut designed to flatter the silhouette, with hand finishes and a quality inner lining.",
       "featured": false
     },
     {
       "id": "p009",
       "name": "Foulard Bazin Doré",
+      "name_en": "Golden Bazin Scarf",
       "category": "accessoires",
       "price": 8000,
       "image": "accessoire_1.jpg",
-      "description": "Foulard assorti en chute de Bazin, finition cousue main.",
+      "description": "Foulard assorti en chute de Bazin, finition cousue main. L'accessoire idéal pour compléter une tenue ou en offrir en cadeau.",
+      "description_en": "Matching scarf made from Bazin fabric offcuts, hand-sewn finish. The ideal accessory to complete an outfit or give as a gift.",
       "featured": false
     },
     {
       "id": "p010",
       "name": "Sac à Main Wax Premium",
+      "name_en": "Premium Wax Handbag",
       "category": "accessoires",
       "price": 15000,
       "image": "accessoire_2.jpg",
-      "description": "Sac artisanal en tissu Wax, doublure intérieure renforcée.",
+      "description": "Sac artisanal en tissu Wax, doublure intérieure renforcée. Fabriqué à la main, chaque sac est unique de par les motifs du tissu utilisé.",
+      "description_en": "Handcrafted bag in Wax fabric with reinforced inner lining. Hand-made, each bag is unique thanks to the patterns of the fabric used.",
       "featured": false
     },
     {
       "id": "p011",
       "name": "Bazin VIP Royal Bleu",
+      "name_en": "Royal Blue Bazin VIP",
       "category": "bazin-vip",
       "price": 46000,
       "image": "bazin_vip_3.jpg",
-      "description": "Bleu royal profond, brillance signature Bazin Riche.",
+      "description": "Bleu royal profond, brillance signature Bazin Riche. Une teinte intemporelle qui convient aussi bien aux hommes qu'aux femmes pour toute grande occasion.",
+      "description_en": "Deep royal blue, signature Bazin Riche shine. A timeless shade suited to both men and women for any special occasion.",
       "featured": false
     },
     {
       "id": "p012",
       "name": "Costume Haute Couture Osée",
+      "name_en": "Osée Haute Couture Suit",
       "category": "haute-couture",
       "price": 150000,
       "image": "couture_3.jpg",
-      "description": "Costume trois pièces, coupe moderne, tissu Bazin d'exception.",
+      "description": "Costume trois pièces, coupe moderne, tissu Bazin d'exception. Veste, gilet et pantalon confectionnés sur-mesure pour une allure impeccable.",
+      "description_en": "Three-piece suit, modern cut, exceptional Bazin fabric. Jacket, waistcoat and trousers made to measure for a flawless look.",
       "featured": false
     }
   ],
@@ -140,18 +187,21 @@
     {
       "id": "v001",
       "title": "Défilé Collection Bazin VIP 2026",
+      "title_en": "Bazin VIP 2026 Collection Runway Show",
       "file": "defile_2026.mp4",
       "poster": "defile_2026.jpg"
     },
     {
       "id": "v002",
       "title": "Présentation Tissus Getzner",
+      "title_en": "Getzner Fabrics Presentation",
       "file": "presentation_getzner.mp4",
       "poster": "presentation_getzner.jpg"
     },
     {
       "id": "v003",
       "title": "Atelier Haute Couture",
+      "title_en": "Haute Couture Workshop",
       "file": "atelier_couture.mp4",
       "poster": "atelier_couture.jpg"
     }
