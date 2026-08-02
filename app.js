@@ -197,6 +197,7 @@
       "cart.clearedToast": "Panier vidé.",
       "product.addToCart": "Ajouter au panier",
       "product.orderWhatsapp": "Commander WhatsApp",
+      "product.photoSoon": "Photo à venir",
       "product.empty": "Aucun article dans cette catégorie pour le moment. Revenez bientôt !",
       "favorites.empty": "Aucun favori pour le moment. Touchez le cœur sur un article pour l'ajouter ici.",
       "favorites.addedToast": "Ajouté aux favoris.",
@@ -204,6 +205,8 @@
       "history.empty": "Aucun historique pour le moment.",
       "videos.empty": "Les vidéos de défilés arrivent bientôt.",
       "videos.playError": "Lecture impossible sur cet appareil.",
+      "videos.viewOnTiktok": "Voir sur TikTok",
+      "videos.viewOnInstagram": "Voir sur Instagram",
       "account.idInvalid": "Format d'ID invalide. Exemple : RAMA-98A1",
       "account.restoredToast": "Profil restauré avec succès.",
       "account.idSavedToast": "ID enregistré. Données locales conservées.",
@@ -305,6 +308,7 @@
       "cart.clearedToast": "Cart cleared.",
       "product.addToCart": "Add to cart",
       "product.orderWhatsapp": "Order via WhatsApp",
+      "product.photoSoon": "Photo coming soon",
       "product.empty": "No items in this category yet. Check back soon!",
       "favorites.empty": "No favorites yet. Tap the heart on an item to add it here.",
       "favorites.addedToast": "Added to favorites.",
@@ -312,6 +316,8 @@
       "history.empty": "No history yet.",
       "videos.empty": "Runway videos are coming soon.",
       "videos.playError": "Playback isn't available on this device.",
+      "videos.viewOnTiktok": "View on TikTok",
+      "videos.viewOnInstagram": "View on Instagram",
       "account.idInvalid": "Invalid ID format. Example: RAMA-98A1",
       "account.restoredToast": "Profile restored successfully.",
       "account.idSavedToast": "ID saved. Local data kept.",
@@ -705,7 +711,10 @@
     return (
       '<article class="product-card" data-id="' + escapeHtml(p.id) + '">' +
         '<button type="button" class="fav-btn' + (isFav ? " is-active" : "") + '" data-fav="' + escapeHtml(p.id) + '" aria-label="Ajouter aux favoris" aria-pressed="' + isFav + '">&#9825;</button>' +
-        '<div class="product-media" data-open-detail="' + escapeHtml(p.id) + '"><img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(name) + '" loading="lazy" onerror="this.src=\'logo.jpg\';this.classList.add(\'img-fallback\')"></div>' +
+        '<div class="product-media" data-open-detail="' + escapeHtml(p.id) + '">' +
+          '<div class="no-photo-fallback"><span class="icon" aria-hidden="true">&#9986;</span><span class="label">' + escapeHtml(t("product.photoSoon")) + "</span></div>" +
+          '<img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(name) + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+        "</div>" +
         '<div class="product-body">' +
           '<span class="product-cat">' + escapeHtml(categoryLabel(p.category)) + "</span>" +
           '<h3 class="product-name" data-open-detail="' + escapeHtml(p.id) + '">' + escapeHtml(name) + "</h3>" +
@@ -808,7 +817,7 @@
         total += lineTotal;
         return (
           '<div class="cart-line" data-id="' + escapeHtml(p.id) + '">' +
-            '<img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(name) + '" onerror="this.src=\'logo.jpg\'">' +
+            '<span class="cart-line-thumb"><img src="' + escapeHtml(p.image) + '" alt="' + escapeHtml(name) + '" onerror="this.style.display=\'none\'"></span>' +
             '<div class="cart-line-info">' +
               '<p class="cart-line-name">' + escapeHtml(name) + "</p>" +
               '<p class="cart-line-price">' + formatPrice(p.price) + "</p>" +
@@ -925,6 +934,10 @@
     const name = localize(p, "name");
     $("#product-modal-img").src = p.image;
     $("#product-modal-img").alt = name;
+    $("#product-modal-img").style.display = "";
+    $("#product-modal-img").onerror = function () {
+      this.style.display = "none";
+    };
     $("#product-modal-cat").textContent = categoryLabel(p.category);
     $("#product-modal-name").textContent = name;
     $("#product-modal-price").textContent = formatPrice(p.price);
@@ -968,8 +981,108 @@
 
 
   /* ----------------------------------------------------------------
-   * 8. VIDÉOS — LECTEUR SUR MESURE
+   * 8. VIDÉOS — TIKTOK / INSTAGRAM (LIENS RÉELS) + LECTEUR LOCAL
    * ------------------------------------------------------------- */
+  const TIKTOK_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 5.2c.8.86 1.9 1.4 3.1 1.5V9.3c-1.28-.02-2.5-.42-3.55-1.1v6.34c0 3.18-2.57 5.76-5.76 5.76S4.63 17.72 4.63 14.54c0-3.06 2.4-5.56 5.42-5.74v2.83a2.9 2.9 0 1 0 2.05 2.77V2h2.5c0 1.16.36 2.24 1 3.2z"/></svg>';
+  const INSTAGRAM_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
+
+  function isTikTokPostUrl(url) {
+    return /tiktok\.com\/.+\/video\/\d+/.test(url || "");
+  }
+  function isInstagramPostUrl(url) {
+    return /instagram\.com\/(reel|p|tv)\//.test(url || "");
+  }
+  let tiktokScriptLoaded = false;
+  let instagramScriptLoaded = false;
+  function ensureTikTokScript() {
+    if (tiktokScriptLoaded) {
+      if (window.__tiktokEmbedLoad) window.__tiktokEmbedLoad();
+      return;
+    }
+    tiktokScriptLoaded = true;
+    const s = document.createElement("script");
+    s.src = "https://www.tiktok.com/embed.js";
+    s.async = true;
+    document.body.appendChild(s);
+  }
+  function ensureInstagramScript() {
+    if (instagramScriptLoaded) {
+      if (window.instgrm) window.instgrm.Embeds.process();
+      return;
+    }
+    instagramScriptLoaded = true;
+    const s = document.createElement("script");
+    s.src = "https://www.instagram.com/embed.js";
+    s.async = true;
+    s.onload = () => {
+      if (window.instgrm) window.instgrm.Embeds.process();
+    };
+    document.body.appendChild(s);
+  }
+
+  function videoCardHtml(v) {
+    const title = localize(v, "title");
+
+    // Publication précise TikTok (lien direct vers une vidéo) → lecteur officiel intégré
+    if (v.provider === "tiktok" && isTikTokPostUrl(v.url)) {
+      const videoId = (v.url.match(/\/video\/(\d+)/) || [])[1] || "";
+      return (
+        '<figure class="video-card video-card-embed" data-video-embed="tiktok">' +
+          '<blockquote class="tiktok-embed" cite="' + escapeHtml(v.url) + '" data-video-id="' + escapeHtml(videoId) + '" style="max-width:100%;min-width:100%;">' +
+            '<section></section>' +
+          "</blockquote>" +
+          '<figcaption>' + escapeHtml(title) + "</figcaption>" +
+        "</figure>"
+      );
+    }
+
+    // Publication précise Instagram (Reel/post) → lecteur officiel intégré
+    if (v.provider === "instagram" && isInstagramPostUrl(v.url)) {
+      return (
+        '<figure class="video-card video-card-embed" data-video-embed="instagram">' +
+          '<blockquote class="instagram-media" data-instgrm-permalink="' + escapeHtml(v.url) + '" data-instgrm-version="14" style="width:100%;"></blockquote>' +
+          '<figcaption>' + escapeHtml(title) + "</figcaption>" +
+        "</figure>"
+      );
+    }
+
+    // Vidéo hébergée localement (petit fichier téléversé à la racine)
+    if (v.provider === "self" || (!v.provider && v.file)) {
+      return (
+        '<figure class="video-card" data-video-card>' +
+          '<div class="video-frame">' +
+            '<video preload="metadata" playsinline poster="' + escapeHtml(v.poster || "") + '" src="' + escapeHtml(v.file || "") + '"></video>' +
+            '<button type="button" class="video-play-overlay" data-video-toggle aria-label="Lire la vidéo">' +
+              '<span class="play-icon" aria-hidden="true">&#9658;</span>' +
+            "</button>" +
+            '<div class="video-controls">' +
+              '<button type="button" class="vc-btn" data-video-toggle aria-label="Lecture / Pause">&#9658;</button>' +
+              '<div class="video-progress"><div class="video-progress-fill"></div></div>' +
+              '<button type="button" class="vc-btn" data-video-mute aria-label="Son">&#128266;</button>' +
+            "</div>" +
+          "</div>" +
+          '<figcaption>' + escapeHtml(title) + "</figcaption>" +
+        "</figure>"
+      );
+    }
+
+    // Repli élégant : pas encore de publication précise renseignée → carte
+    // de renvoi vers la page TikTok / Instagram de la boutique (jamais vide,
+    // jamais le logo répété : identité visuelle propre à chaque réseau).
+    const isTikTok = v.provider === "tiktok";
+    const icon = isTikTok ? TIKTOK_ICON : INSTAGRAM_ICON;
+    const brandClass = isTikTok ? "tiktok" : "instagram";
+    const ctaLabel = isTikTok ? t("videos.viewOnTiktok") : t("videos.viewOnInstagram");
+    const url = v.url || (isTikTok ? "https://www.tiktok.com" : "https://www.instagram.com");
+    return (
+      '<a class="video-card video-teaser ' + brandClass + '" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' +
+        '<div class="video-teaser-icon">' + icon + "</div>" +
+        '<p class="video-teaser-title">' + escapeHtml(title) + "</p>" +
+        '<span class="video-teaser-cta">' + escapeHtml(ctaLabel) + " ↗</span>" +
+      "</a>"
+    );
+  }
+
   function renderVideos() {
     const host = $("#videos-grid");
     if (!host) return;
@@ -978,32 +1091,24 @@
       host.innerHTML = '<p class="empty-state">' + escapeHtml(t("videos.empty")) + "</p>";
       return;
     }
-    host.innerHTML = videos
-      .map(
-        (v) =>
-          '<figure class="video-card" data-video-card>' +
-            '<div class="video-frame">' +
-              '<video preload="metadata" playsinline poster="' + escapeHtml(v.poster || "") + '" src="' + escapeHtml(v.file) + '"></video>' +
-              '<button type="button" class="video-play-overlay" data-video-toggle aria-label="Lire la vidéo">' +
-                '<span class="play-icon" aria-hidden="true">&#9658;</span>' +
-              "</button>" +
-              '<div class="video-controls">' +
-                '<button type="button" class="vc-btn" data-video-toggle aria-label="Lecture / Pause">&#9658;</button>' +
-                '<div class="video-progress"><div class="video-progress-fill"></div></div>' +
-                '<button type="button" class="vc-btn" data-video-mute aria-label="Son">&#128266;</button>' +
-              "</div>" +
-            "</div>" +
-            '<figcaption>' + escapeHtml(localize(v, "title")) + "</figcaption>" +
-          "</figure>"
-      )
-      .join("");
+    host.innerHTML = videos.map(videoCardHtml).join("");
 
+    // Charge les scripts officiels uniquement si des posts précis sont présents
+    if (videos.some((v) => v.provider === "tiktok" && isTikTokPostUrl(v.url))) {
+      ensureTikTokScript();
+    }
+    if (videos.some((v) => v.provider === "instagram" && isInstagramPostUrl(v.url))) {
+      ensureInstagramScript();
+    }
+
+    // Lecteur sur mesure pour les vidéos hébergées localement uniquement
     $all("[data-video-card]", host).forEach((card) => {
       const video = $("video", card);
       const overlay = $(".video-play-overlay", card);
       const toggleBtns = $all("[data-video-toggle]", card);
       const muteBtn = $("[data-video-mute]", card);
       const fill = $(".video-progress-fill", card);
+      if (!video) return;
 
       function playPause() {
         if (video.paused) {
@@ -1036,6 +1141,22 @@
           muteBtn.innerHTML = video.muted ? "&#128263;" : "&#128266;";
         });
     });
+
+    setupVideoScrollFocus(host);
+  }
+
+  function setupVideoScrollFocus(host) {
+    const cards = $all(".video-card", host);
+    if (!cards.length || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-in-focus", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.6 }
+    );
+    cards.forEach((c) => observer.observe(c));
   }
 
   /* ----------------------------------------------------------------

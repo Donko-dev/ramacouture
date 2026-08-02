@@ -123,7 +123,7 @@ button{font-family:inherit;cursor:pointer;}
 
 /* Header */
 #site-header{
-  position:fixed;top:0;left:0;right:0;z-index:60;
+  position:fixed;top:0;left:0;right:0;z-index:70;
   display:flex;align-items:center;justify-content:space-between;
   padding:16px 5%;
   background:linear-gradient(to bottom, rgba(var(--bg-rgb),0.85), transparent);
@@ -146,7 +146,7 @@ button{font-family:inherit;cursor:pointer;}
 
 .nav-actions{display:flex;align-items:center;gap:14px;}
 #nav-menu{
-  position:fixed;inset:0 0 0 auto;width:min(320px,84%);z-index:65;
+  position:fixed;inset:0 0 0 auto;width:min(320px,84%);z-index:95;
   background:var(--surface);
   transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
   padding:96px 28px 32px;display:flex;flex-direction:column;gap:18px;
@@ -180,7 +180,7 @@ button{font-family:inherit;cursor:pointer;}
   display:flex;align-items:center;justify-content:center;padding:0 4px;
 }
 .cart-badge.is-hidden{display:none;}
-#nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:59;}
+#nav-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:90;}
 #nav-overlay.is-open{opacity:1;pointer-events:auto;}
 
 /* Réglages (thème / devise / langue) — à l'intérieur du menu latéral opaque,
@@ -200,7 +200,7 @@ button{font-family:inherit;cursor:pointer;}
 .currency-panel{
   position:absolute;top:52px;left:0;min-width:190px;background:var(--surface-2);border:1px solid var(--line);
   border-radius:12px;box-shadow:var(--shadow);padding:8px;opacity:0;transform:translateY(-8px);pointer-events:none;
-  transition:opacity .25s ease, transform .25s ease;z-index:70;
+  transition:opacity .25s ease, transform .25s ease;z-index:96;
 }
 .currency-panel.is-open{opacity:1;transform:none;pointer-events:auto;}
 .currency-option{
@@ -277,10 +277,18 @@ section{padding:90px 0;}
   overflow:hidden;display:flex;flex-direction:column;transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 .product-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--gold-deep);}
-.product-media{aspect-ratio:3/4;background:var(--surface-2);overflow:hidden;}
-.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.product-media{position:relative;aspect-ratio:3/4;background:linear-gradient(160deg, var(--surface-2), var(--surface));overflow:hidden;}
+.product-media img{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
 .product-card:hover .product-media img{transform:scale(1.06);}
-.img-fallback{object-fit:contain !important;padding:22%;background:var(--surface-2);}
+.no-photo-fallback{
+  position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  background-image:repeating-linear-gradient(115deg, rgba(212,175,55,0.05) 0 2px, transparent 2px 20px);
+}
+.no-photo-fallback .icon{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:1.05rem;background:rgba(212,175,55,.08);
+}
+.no-photo-fallback .label{font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
 .product-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1;}
 .product-cat{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
 .product-name{font-size:1rem;color:var(--cream);margin:0;line-height:1.25;}
@@ -321,10 +329,39 @@ section{padding:90px 0;}
 .video-progress-fill{height:100%;width:0;background:var(--gold);}
 figcaption{margin-top:12px;color:var(--cream);font-family:var(--display);font-size:1.05rem;}
 
+/* Intégrations officielles TikTok / Instagram */
+.video-card-embed{transition:transform .4s ease, opacity .4s ease;opacity:.72;transform:scale(.96);}
+.video-card-embed.is-in-focus{opacity:1;transform:scale(1);}
+.video-card-embed blockquote{margin:0 auto;border-radius:var(--radius);overflow:hidden;min-height:420px;}
+.video-card-embed .tiktok-embed{background:var(--surface) !important;border:1px solid var(--line) !important;}
+
+/* Carte de renvoi élégante (pas encore de publication précise renseignée) */
+.video-teaser{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;
+  aspect-ratio:9/13;border-radius:var(--radius);border:1px solid var(--line);padding:32px 24px;
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;position:relative;overflow:hidden;
+}
+.video-teaser::before{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:repeating-linear-gradient(135deg, rgba(212,175,55,0.06) 0 2px, transparent 2px 22px);
+}
+.video-teaser:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.video-teaser-icon{
+  position:relative;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;box-shadow:0 10px 26px rgba(0,0,0,.3);
+}
+.video-teaser-icon svg{width:30px;height:30px;}
+.video-teaser.tiktok .video-teaser-icon{background:#010101;}
+.video-teaser.instagram .video-teaser-icon{background:radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);}
+.video-teaser.tiktok{border-color:rgba(1,1,1,.35);}
+.video-teaser.instagram{border-color:rgba(214,36,159,.3);}
+.video-teaser-title{position:relative;font-family:var(--display);font-size:1.15rem;color:var(--cream);margin:0;}
+.video-teaser-cta{position:relative;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);}
+
 /* About */
 .about-grid{display:grid;gap:36px;align-items:center;}
 @media(min-width:860px){.about-grid{grid-template-columns:1fr 1fr;}}
-.about-media{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;background:var(--surface);}
+.about-media{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;background:var(--surface);}
 .about-media img{width:100%;height:100%;object-fit:cover;}
 .stat-row{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap;}
 .stat b{display:block;font-family:var(--display);font-size:1.8rem;color:var(--gold);}
@@ -409,10 +446,10 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
 .footer-bottom strong{color:var(--gold);}
 
 /* Cart Drawer */
-#cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:80;}
+#cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:100;}
 #cart-overlay.is-open{opacity:1;pointer-events:auto;}
 #cart-drawer{
-  position:fixed;top:0;right:0;bottom:0;width:min(400px,92%);background:var(--surface);z-index:81;
+  position:fixed;top:0;right:0;bottom:0;width:min(400px,92%);background:var(--surface);z-index:101;
   transform:translateX(100%);transition:transform .4s cubic-bezier(.7,0,.2,1);
   display:flex;flex-direction:column;border-left:1px solid var(--line);
 }
@@ -422,7 +459,11 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
 .cart-close{background:none;border:0;color:var(--cream);font-size:1.4rem;}
 #cart-items{flex:1;overflow-y:auto;padding:16px 22px;}
 .cart-line{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);}
-.cart-line img{width:56px;height:70px;object-fit:cover;border-radius:8px;}
+.cart-line-thumb{
+  width:56px;height:70px;border-radius:8px;flex-shrink:0;overflow:hidden;
+  background:linear-gradient(160deg, var(--surface-2), var(--surface));display:block;
+}
+.cart-line-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 .cart-line-info{flex:1;}
 .cart-line-name{margin:0;font-size:.88rem;color:var(--cream);}
 .cart-line-price{margin:2px 0 6px;font-size:.8rem;color:var(--gold);}
@@ -457,7 +498,7 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
 .product-modal-grid{display:grid;grid-template-columns:1fr;}
 @media(min-width:640px){.product-modal-grid{grid-template-columns:1fr 1fr;}}
 .product-modal-media{position:relative;aspect-ratio:3/4;background:var(--surface-2);}
-.product-modal-media img{width:100%;height:100%;object-fit:cover;}
+.product-modal-media img{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;}
 .product-modal-close{
   position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
   background:rgba(var(--bg-rgb),.55);backdrop-filter:blur(4px);color:var(--cream);font-size:1.1rem;z-index:2;
@@ -518,31 +559,32 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
       <span></span><span></span><span></span>
     </button>
   </div>
-  <nav id="nav-menu" aria-label="Navigation principale">
-    <div class="nav-settings-row">
-      <div class="currency-wrap">
-        <button type="button" class="currency-toggle" id="currency-toggle" aria-haspopup="listbox" aria-expanded="false">
-          <span id="currency-current">FCFA</span> <span aria-hidden="true">▾</span>
-        </button>
-        <div class="currency-panel" id="currency-panel" role="listbox"></div>
-      </div>
-      <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language / Changer de langue">
-        <span id="lang-current">FR</span>
-      </button>
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
-        <span id="theme-icon" aria-hidden="true">☀️</span>
-      </button>
-    </div>
-    <a href="#accueil" data-i18n="nav.home">Accueil</a>
-    <a href="#boutique" data-i18n="nav.boutique">Boutique</a>
-    <a href="#videos" data-i18n="nav.videos">Défilés &amp; Ateliers</a>
-    <a href="#a-propos" data-i18n="nav.about">Notre Savoir-faire</a>
-    <a href="#compte" data-i18n="nav.account">Mon Compte</a>
-    <a href="#contact" data-i18n="nav.contact">Contact</a>
-    <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener" data-i18n="nav.orderWhatsapp">Commander sur WhatsApp</a>
-  </nav>
 </header>
 <div id="nav-overlay"></div>
+<nav id="nav-menu" aria-label="Navigation principale">
+  <div class="nav-settings-row">
+    <div class="currency-wrap">
+      <button type="button" class="currency-toggle" id="currency-toggle" aria-haspopup="listbox" aria-expanded="false">
+        <span id="currency-current">FCFA</span> <span aria-hidden="true">▾</span>
+      </button>
+      <div class="currency-panel" id="currency-panel" role="listbox"></div>
+    </div>
+    <button type="button" class="lang-toggle" id="lang-toggle" aria-label="Switch language / Changer de langue">
+      <span id="lang-current">FR</span>
+    </button>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+      <span id="theme-icon" aria-hidden="true">☀️</span>
+    </button>
+  </div>
+  <a href="#accueil" data-i18n="nav.home">Accueil</a>
+  <a href="#boutique" data-i18n="nav.boutique">Boutique</a>
+  <a href="#videos" data-i18n="nav.videos">Défilés &amp; Ateliers</a>
+  <a href="#a-propos" data-i18n="nav.about">Notre Savoir-faire</a>
+  <a href="#compte" data-i18n="nav.account">Mon Compte</a>
+  <a href="#contact" data-i18n="nav.contact">Contact</a>
+  <a class="btn btn-gold" data-wa-link="phone1" target="_blank" rel="noopener" data-i18n="nav.orderWhatsapp">Commander sur WhatsApp</a>
+</nav>
+
 
 <main id="main">
 
@@ -609,7 +651,8 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
     <div class="container about-grid">
       <div data-reveal>
         <div class="about-media">
-          <img src="atelier.jpg" alt="Atelier Rama Bazin & Couture" onerror="this.src='logo.jpg';this.style.objectFit='contain';this.style.padding='18%'">
+          <div class="no-photo-fallback"><span class="icon" aria-hidden="true">&#9986;</span><span class="label" data-i18n="product.photoSoon">Photo à venir</span></div>
+          <img src="atelier.jpg" alt="Atelier Rama Bazin & Couture" style="position:relative;z-index:2;" onerror="this.style.display='none'">
         </div>
       </div>
       <div data-reveal>
@@ -771,6 +814,7 @@ footer{background:var(--surface);border-top:1px solid var(--line);padding:56px 0
     <div class="product-modal-grid">
       <div class="product-modal-media">
         <button type="button" class="product-modal-close" id="product-modal-close" aria-label="Fermer">✕</button>
+        <div class="no-photo-fallback"><span class="icon" aria-hidden="true">&#9986;</span><span class="label" data-i18n="product.photoSoon">Photo à venir</span></div>
         <img id="product-modal-img" src="" alt="">
       </div>
       <div class="product-modal-body">

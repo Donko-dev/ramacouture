@@ -186,22 +186,23 @@
   "videos": [
     {
       "id": "v001",
-      "title": "Défilé Collection Bazin VIP 2026",
-      "title_en": "Bazin VIP 2026 Collection Runway Show",
-      "file": "defile_2026.mp4",
-      "poster": "defile_2026.jpg"
+      "title": "Suivez nos défilés en vidéo sur TikTok",
+      "title_en": "Follow our runway shows on TikTok",
+      "provider": "tiktok",
+      "url": "https://www.tiktok.com/@ramabazinetcouture"
     },
     {
       "id": "v002",
-      "title": "Présentation Tissus Getzner",
-      "title_en": "Getzner Fabrics Presentation",
-      "file": "presentation_getzner.mp4",
-      "poster": "presentation_getzner.jpg"
+      "title": "Nos créations en vidéo sur Instagram",
+      "title_en": "Our creations on video on Instagram",
+      "provider": "instagram",
+      "url": "https://www.instagram.com/ramabazinetcouture"
     },
     {
       "id": "v003",
       "title": "Atelier Haute Couture",
       "title_en": "Haute Couture Workshop",
+      "provider": "self",
       "file": "atelier_couture.mp4",
       "poster": "atelier_couture.jpg"
     }
