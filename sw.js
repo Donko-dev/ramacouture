@@ -4,7 +4,7 @@
    Powered by EMPIRE DONKO
    ====================================================================== */
 
-const CACHE_VERSION = "rama-couture-v1";
+const CACHE_VERSION = "rama-couture-v2";
 const STATIC_CACHE = CACHE_VERSION + "-static";
 const RUNTIME_CACHE = CACHE_VERSION + "-runtime";
 
@@ -68,7 +68,31 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  if (url.pathname.endsWith("/data.json") || isNavigationRequest(request)) {
+  // data.json : toujours en réseau d'abord (catalogue à jour dès que possible),
+  // mais avec un repli sur le cache hors-ligne fiable, insensible à une
+  // éventuelle chaîne de requête (?v=...) ajoutée côté page.
+  if (url.pathname.endsWith("/data.json")) {
+    const cacheKey = new Request(url.origin + url.pathname);
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.ok) {
+            const clone = response.clone();
+            caches.open(STATIC_CACHE).then((cache) => cache.put(cacheKey, clone));
+          }
+          return response;
+        })
+        .catch(() =>
+          caches.match(cacheKey, { ignoreSearch: true }).then((cached) => {
+            if (cached) return cached;
+            return caches.match(request, { ignoreSearch: true });
+          })
+        )
+    );
+    return;
+  }
+
+  if (isNavigationRequest(request)) {
     event.respondWith(
       fetch(request)
         .then((response) => {

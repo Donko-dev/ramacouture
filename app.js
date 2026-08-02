@@ -553,7 +553,11 @@
    * 4. CHARGEMENT DES DONNÉES (data.json)
    * ------------------------------------------------------------- */
   function loadData() {
-    return fetch(CONFIG.dataFile + "?v=" + Date.now(), { cache: "no-store" })
+    // IMPORTANT : ne jamais ajouter de paramètre aléatoire (ex. ?v=timestamp)
+    // à cette URL. Le Service Worker met en cache "data.json" avec une URL
+    // stable ; un paramètre changeant empêcherait la correspondance de cache
+    // et casserait l'affichage des produits en mode hors-ligne.
+    return fetch(CONFIG.dataFile, { cache: "no-store" })
       .then((res) => {
         if (!res.ok) throw new Error("data.json introuvable (" + res.status + ")");
         return res.json();
@@ -563,11 +567,37 @@
         return json;
       })
       .catch((err) => {
-        console.error("Erreur de chargement de data.json :", err);
-        SITE_DATA = { meta: {}, categories: [], products: [], videos: [] };
-        toast(t("data.loadError"));
-        return SITE_DATA;
+        console.warn("Réseau indisponible pour data.json, tentative via le cache local :", err);
+        return loadDataFromCacheStorage();
       });
+  }
+
+  function loadDataFromCacheStorage() {
+    if (!("caches" in window)) {
+      return failLoadData();
+    }
+    return caches
+      .open("rama-couture-v2-static")
+      .then((cache) => cache.match(CONFIG.dataFile))
+      .then((cached) => {
+        if (cached) return cached.json();
+        // Filet de sécurité : cherche dans n'importe quel cache existant
+        return caches.match(CONFIG.dataFile).then((anyCached) => {
+          if (anyCached) return anyCached.json();
+          throw new Error("Aucune copie hors-ligne de data.json disponible.");
+        });
+      })
+      .then((json) => {
+        SITE_DATA = json;
+        return json;
+      })
+      .catch(() => failLoadData());
+  }
+
+  function failLoadData() {
+    SITE_DATA = { meta: {}, categories: [], products: [], videos: [] };
+    toast(t("data.loadError"));
+    return SITE_DATA;
   }
 
   /* ----------------------------------------------------------------
@@ -645,9 +675,11 @@
     const host = $("#category-filters");
     if (!host) return;
     const cats = SITE_DATA.categories || [];
-    let html = '<button type="button" class="chip is-active" data-cat="all">' + escapeHtml(t("boutique.all")) + "</button>";
+    const stillValid = activeCategory === "all" || cats.some((c) => c.id === activeCategory);
+    if (!stillValid) activeCategory = "all";
+    let html = '<button type="button" class="chip' + (activeCategory === "all" ? " is-active" : "") + '" data-cat="all">' + escapeHtml(t("boutique.all")) + "</button>";
     cats.forEach((c) => {
-      html += '<button type="button" class="chip" data-cat="' + escapeHtml(c.id) + '">' + escapeHtml(localize(c, "label")) + "</button>";
+      html += '<button type="button" class="chip' + (activeCategory === c.id ? " is-active" : "") + '" data-cat="' + escapeHtml(c.id) + '">' + escapeHtml(localize(c, "label")) + "</button>";
     });
     host.innerHTML = html;
     $all(".chip", host).forEach((btn) => {
@@ -1127,19 +1159,29 @@
   function setupNav() {
     const toggle = $("#nav-toggle");
     const menu = $("#nav-menu");
+    const overlay = $("#nav-overlay");
+    function closeMenu() {
+      menu.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("no-scroll");
+      overlay && overlay.classList.remove("is-open");
+    }
+    function openMenu() {
+      menu.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      document.body.classList.add("no-scroll");
+      overlay && overlay.classList.add("is-open");
+    }
     if (toggle && menu) {
       toggle.addEventListener("click", () => {
-        const isOpen = menu.classList.toggle("is-open");
-        toggle.setAttribute("aria-expanded", String(isOpen));
-        document.body.classList.toggle("no-scroll", isOpen);
+        if (menu.classList.contains("is-open")) closeMenu();
+        else openMenu();
       });
-      $all("a", menu).forEach((link) =>
-        link.addEventListener("click", () => {
-          menu.classList.remove("is-open");
-          toggle.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("no-scroll");
-        })
-      );
+      $all("a", menu).forEach((link) => link.addEventListener("click", closeMenu));
+      overlay && overlay.addEventListener("click", closeMenu);
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && menu.classList.contains("is-open")) closeMenu();
+      });
     }
     const header = $("#site-header");
     if (header) {
@@ -1373,7 +1415,7 @@
     setupLanguage();
     setupProductModal();
 
-    loadData().then(() => {
+    function renderEverything() {
       applyDesignSettings();
       renderMeta();
       renderCategoryFilters();
@@ -1381,8 +1423,12 @@
       renderFeatured();
       renderVideos();
       renderAccount();
-      setupAccount();
       updateCartBadge();
+    }
+
+    loadData().then(() => {
+      renderEverything();
+      setupAccount();
       setupReveal();
       const el = document.documentElement;
       el.classList.add("is-ready");
@@ -1391,6 +1437,15 @@
     window.addEventListener("online", () => {
       toast(t("sync.online"));
       syncNow();
+      // Recharge le catalogue dès que la connexion revient, pour afficher
+      // immédiatement les produits ajoutés pendant la coupure.
+      loadData().then(renderEverything);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible" && navigator.onLine && SITE_DATA) {
+        loadData().then(renderEverything);
+      }
     });
   }
 
